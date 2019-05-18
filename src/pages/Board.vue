@@ -1,5 +1,4 @@
 <template>
-<<<<<<< HEAD
   <div>
     <div class="container-fluid">
       <div class="columns">
