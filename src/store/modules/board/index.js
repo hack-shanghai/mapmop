@@ -1,6 +1,7 @@
 const generate = require('nanoid/generate')
 
 const cities = require('../../../assets/cities.json');
+const connections = require('../../../assets/connections.json');
 
 const Board = {
   namespaced: true,
@@ -64,6 +65,9 @@ const Board = {
         /**
          * Generate the transitions.
          */
+        connections.forEach((c) => {
+          commit('ADD_TRANSITION', c);
+        });
 
         commit('SET_INIT', true);
         resolve();
@@ -74,9 +78,12 @@ const Board = {
     ADD_CITY(state, city) {
         state.cities.push(city);
     },
+    ADD_TRANSITION(state, transition) {
+        state.transitions.push(transition);
+    },
     SET_INIT(state, initialized) {
       state.initialized = initialized;
-    }
+    },
   },
 };
 

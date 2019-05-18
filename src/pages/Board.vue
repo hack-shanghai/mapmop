@@ -1,10 +1,23 @@
 <template>
   <div>
+    <div class="container">
+      <div class="level">
+        <div class="level-item">
+          <p class="title">Map Mop</p>
+        </div>
+        <div class="level-item has-text-centered">
+          <div>
+            <p class="heading">Actions left</p>
+            <p class="title">{{ game.action_left }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container-fluid">
       <div class="columns">
         <div class="column is-three-quarters">
           <div class="box">
-            <Map :cities="cities" :connections="connections"/>
+            <mapmop :cities="cities" :connections="connections"/>
           </div>
         </div>
         <div class="column">
@@ -26,18 +39,17 @@
 <script>
 import { mapGetters } from 'vuex';
 import Map from "../components/Map";
-import cities from "../assets/cities";
-import connections from "../assets/connections";
 
 export default {
   name: "board",
   components: {
-    Map
+    'mapmop': Map,
   },
   data() {
     return {
-      cities,
-      connections
+      game: {
+        action_left: 3,
+      },
     };
   },
   computed: {
