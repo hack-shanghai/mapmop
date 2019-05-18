@@ -64,6 +64,7 @@ const Players = {
         let cards = context.rootGetters['decks/getResearchCards'];
         let cities = context.rootGetters['board/getCities'];
         let characters = context.rootGetters['config/getCharacters'];
+        let settings = context.rootGetters['config/getSettings'];
 
         let charactersArray = Object.keys(characters);
         shuffle(charactersArray);
@@ -71,7 +72,7 @@ const Players = {
         context.state.players.forEach((p) => {
           let rand = Math.floor((Math.random() * cities.length));
           p.city = cities[rand];
-          for(let i = 0; i < 5; i++) {
+          for(let i = 0; i < settings.player_max_deck_size; i++) {
             let card = cards.pop();
             if(card) {
               p.cards.push(card);

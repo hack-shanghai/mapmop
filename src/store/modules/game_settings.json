@@ -1,5 +1,6 @@
 {
 	"settings": {
+		"player_max_deck_size": 5,
 		"players_city_ratio": 10,
 		"city_link_ratio": 2,
 		"cards_per_turn": 2,
