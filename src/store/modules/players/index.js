@@ -46,6 +46,16 @@ const Players = {
     setCurrentPlayer({ commit }, player) {
       commit('SET_CURRENT_PLAYER', player);
     },
+    init({ commit }) {
+      return new Promise((resolve, reject) => {
+        /**
+         * Init the first cards in the deck.
+         */
+
+
+        resolve();
+      });
+    },
   },
   mutations: {
     ADD_PLAYER(state, player) {

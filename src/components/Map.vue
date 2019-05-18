@@ -7,7 +7,7 @@
     >
       <vl-view projection="EPSG:4326"></vl-view>
 
-      <vl-feature v-for="(city, index) in cities" :key="index">
+      <vl-feature v-for="(city, index) in cities" :key="index"  :title="city.name">
         <vl-geom-point :coordinates="[city.lat, city.lon]"></vl-geom-point>
         <!-- <vl-style-box>
           <vl-style-icon src="assets/dot.png" color="[113, 140, 0]"></vl-style-icon>

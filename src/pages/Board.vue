@@ -7,8 +7,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Map from "../components/Map";
-import cities from "../assets/cities";
+
 export default {
   name: "board",
   components: {
@@ -16,10 +17,17 @@ export default {
   },
   data() {
     return {
-      cities
     };
   },
-  mounted() {}
+  computed: {
+    ...mapGetters({
+      players: 'players/getPlayers',
+      cities: 'board/getCities',
+    })
+  },
+  mounted() {
+
+  },
 };
 </script>
 
