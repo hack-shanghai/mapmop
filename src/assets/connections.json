@@ -1,0 +1,22 @@
+[
+	{ "city1": "Los Angeles", "city2": "New York" },
+	{ "city1": "Los Angeles", "city2": "Bogotá" },
+	{ "city1": "Bogotá", "city2": "New York" },
+	{ "city1": "Barcelona", "city2": "New York" },
+	{ "city1": "Los Angeles", "city2": "Bogotá" },
+	{ "city1": "Berlin", "city2": "Ankara" },
+	{ "city1": "Ankara", "city2": "Barcelona" },
+	{ "city1": "Berlin", "city2": "Barcelona" },
+	{ "city1": "Asunción", "city2": "Bogotá" },
+	{ "city1": "Asunción", "city2": "Lagos" },
+	{ "city1": "Lagos", "city2": "Barcelona" },
+	{ "city1": "Lagos", "city2": "Johannesburg" },
+	{ "city1": "Johannesburg", "city2": "Bombay" },
+	{ "city1": "Bombay", "city2": "Ankara" },
+	{ "city1": "Beijing", "city2": "Bombay" },
+	{ "city1": "Beijing", "city2": "Bangkok" },
+	{ "city1": "Tokyo", "city2": "Adelaide" },
+	{ "city1": "Adelaide", "city2": "Bangkok" },
+	{ "city1": "Tokyo", "city2": "Beijing" },
+	{ "city1": "Bangkok", "city2": "Bombay" }
+]
