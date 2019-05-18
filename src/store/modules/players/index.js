@@ -3,6 +3,18 @@ const generate = require('nanoid/generate')
 const Players = {
   namespaced: true,
   state: {
+/**
+ * player: {
+ *   uuid: 'UUID of the user',
+ *   name: 'Public name of the user',
+ *   character: 'UUID of the character',
+ *   cards: [
+ *      'UUID of the card',
+ *      'UUID of the card',
+ *   ],
+ *   city: 'UUID of the city',
+ * }
+ */
     players: [],
     currentPlayer: null,
   },
@@ -19,6 +31,10 @@ const Players = {
   actions: {
     addPlayer({ commit }, player) {
       player.uuid = 'u' + generate('1234567890', 10);
+      player.character = null;
+      player.cards = [],
+      player.city = null;
+
       commit('ADD_PLAYER', player);
     },
     removePlayer({ commit }, player) {

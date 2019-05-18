@@ -46,7 +46,7 @@
         </div>
 
         <div class="has-text-centered">
-          <router-link class="button is-success is-large" to="/board">
+          <router-link class="button is-success is-large" :disabled="players.length < 1" :event="players.length < 1 ? '' : 'click'" to="/board">
             {{ $t('action.play') }}
           </router-link>
         </div>
