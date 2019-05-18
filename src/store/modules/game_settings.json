@@ -74,15 +74,18 @@
 	"crisis": {
 		"nuclear_explosion": {
 			"name": "Nuclear Explosion",
-			"description": "A big nuclear explosion. I told ya this shit was dangerous."
+			"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+			"image": ""
 		},
 		"pollution_cloud": {
 			"name": "Pollution cloud",
-			"description": "Fucking neighbors, we need to wear gaz-masks now."
+			"description": "Fucking neighbors, we need to wear gaz-masks now.",
+			"image": ""
 		},
 		"waste_outbreak": {
 			"name": "Waste Outbreak",
-			"description": "Fucking neighbors, we need to wear gaz-masks now"
+			"description": "Fucking neighbors, we need to wear gaz-masks now",
+			"image": ""
 		}
 	},
 	"buildings": {
