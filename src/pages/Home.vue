@@ -21,6 +21,7 @@
             <tr v-for="(player, index) in players" :key="index">
               <th>{{ index+1 }}</th>
               <th>{{ player.name }}</th>
+              <th><button class="button is-danger" @click="removePlayer(player)">Remove</button></th>
             </tr>
           </tbody>
         </table>
@@ -28,7 +29,8 @@
         <div class="field">
           <label class="label">{{ $t('form.add_player.name') }}</label>
           <div class="control">
-            <input class="input" type="text" v-model="player.name" :placeholder="$t('form.add_player.name_placeholder')"/>
+            <input class="input" :class="{ 'is-danger': errors.first('playerName') }" type="text" name="playerName" v-model="player.name" v-validate="'required|min:3'" required :placeholder="$t('form.add_player.name_placeholder')" @keyup.enter="addPlayer"/>
+            <p class="help is-danger">{{ errors.first('playerName') }}</p>
           </div>
         </div>
 
@@ -53,6 +55,8 @@
 import { mapGetters } from 'vuex';
 
 export default {
+  name: 'home',
+  inject: ['$validator'],
   data() {
     return {
       player: {},
@@ -68,8 +72,18 @@ export default {
   },
   methods: {
     addPlayer() {
-      this.$store.dispatch('players/addPlayer', { name: this.player.name });
+      this.$validator.validate().then(valid => {
+        if (!valid) {
+          return;
+        }
+
+        this.$store.dispatch('players/addPlayer', { name: this.player.name });
+        this.player = {};
+      });
     },
+    removePlayer() {
+      this.$store.dispatch('players/removePlayer', this.player);
+    }
   },
 }
 </script>
