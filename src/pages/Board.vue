@@ -1,10 +1,11 @@
 <template>
+<<<<<<< HEAD
   <div>
     <div class="container-fluid">
       <div class="columns">
         <div class="column is-three-quarters">
           <div class="box">
-            <Map :cities="cities"/>
+            <Map :cities="cities" :connections="connections"/>
           </div>
         </div>
         <div class="column">
@@ -26,6 +27,8 @@
 <script>
 import { mapGetters } from 'vuex';
 import Map from "../components/Map";
+import cities from "../assets/cities";
+import connections from "../assets/connections";
 
 export default {
   name: "board",
@@ -34,12 +37,15 @@ export default {
   },
   data() {
     return {
+      cities,
+      connections
     };
   },
   computed: {
     ...mapGetters({
       players: 'players/getPlayers',
       cities: 'board/getCities',
+      connections: 'board/getTransitions',
       init: 'board/isInitialized',
       currentPlayer: 'players/getCurrentPlayer'
     })
