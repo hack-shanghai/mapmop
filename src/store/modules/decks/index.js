@@ -20,13 +20,19 @@ const Decks = {
 
   },
   actions: {
-    init() {
+    init({ commit }) {
+      return new Promise((resolve, reject) => {
+        /**
+         * Init the cards according to the city.
+         */
 
+        resolve();
+      });
     }
   },
   mutations: {
 
-  }
+  },
 };
 
 export default Decks;

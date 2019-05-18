@@ -46,9 +46,9 @@
         </div>
 
         <div class="has-text-centered">
-          <router-link class="button is-success is-large" :disabled="players.length < 1" :event="players.length < 1 ? '' : 'click'" to="/board">
+          <button class="button is-success is-large" :disabled="players.length < 1" :class="{'is-loading': loading}" @click="launch">
             {{ $t('action.play') }}
-          </router-link>
+          </button>
         </div>
       </div>
     </div>
@@ -64,6 +64,7 @@ export default {
   data() {
     return {
       player: {},
+      loading: false,
     };
   },
   computed: {
@@ -90,7 +91,22 @@ export default {
     },
     reset() {
       this.$store.dispatch('players/reset');
-    }
+    },
+    launch() {
+      if (this.players.length < 1) {
+        return;
+      }
+      this.loading = true;
+
+      this.$store.dispatch('board/init').then(() => {
+        this.$store.dispatch('decks/init').then(() => {
+          this.$store.dispatch('players/init').then(() => {
+            this.loading = false;
+            this.$router.replace('/board');
+          });
+        });
+      });
+    },
   },
 }
 </script>
