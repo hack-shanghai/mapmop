@@ -52,12 +52,16 @@ const Players = {
          * Init the first cards in the deck.
          */
         let cards = rootGetters['decks/getResearchCards'];
+        let cities = rootGetters['board/getCities'];
         state.players.forEach((p) => {
+          let rand = Math.floor((Math.random() * cities.length));
+          p.city = cities[rand];
           for(let i = 0; i < 5; i++) {
             let card = cards.pop();
             p.cards.push(card);
             //rootState.dispatch('decks/removeCard', card);
           }
+          p.character = "dictator";
         });
 
         /**

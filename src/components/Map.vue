@@ -7,14 +7,14 @@
     >
       <vl-view projection="EPSG:4326" :zoom.sync="zoom" :center.sync="center" :rotation.sync="rotation"></vl-view>
 
-      <vl-feature v-for="(city, index) in cities" :key="index">
+      <vl-feature v-for="(city, index) in cities" :key="'city_' + index">
         <vl-geom-point :coordinates="[city.lon, city.lat]"></vl-geom-point>
         <!-- <vl-style-box>
           <vl-style-icon src="assets/dot.png" color="[113, 140, 0]"></vl-style-icon>
         </vl-style-box>-->
       </vl-feature>
 
-      <vl-feature v-for="(coord, index) in connectionsCordinates" :key="index">
+      <vl-feature v-for="(coord, index) in connectionsCordinates" :key="'transition_' + index">
           <vl-geom-line-string :coordinates="[coord.coord1,coord.coord2]"></vl-geom-line-string>
       </vl-feature>
 

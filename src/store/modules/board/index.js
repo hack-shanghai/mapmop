@@ -46,6 +46,11 @@ const Board = {
     getTransitions(state) {
       return state.transitions;
     },
+    getCity(state, city_uuid) {
+      if(!city_uuid)
+        return null;
+      return state.cities.filter((c) => c.uuid == city_uuid)[0];
+    },
   },
   actions: {
     init({ commit }) {
