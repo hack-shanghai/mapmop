@@ -60,8 +60,8 @@ axios.defaults.baseURL = '/api/';
 import Card from "./components/Card";
 Vue.component("card", Card);
 
-import PollutionCard from "./components/PollutionCard";
-Vue.component("pollution-card", PollutionCard);
+import CityCard from "./components/CityCard";
+Vue.component("city-card", CityCard);
 
 /**
  * Load the Vue App.

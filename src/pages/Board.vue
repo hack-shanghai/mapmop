@@ -23,7 +23,7 @@
         <div class="column">
           <div v-for="(player, index) in players" :key="player.uuid">
             <div v-if="player.uuid != currentPlayer.uuid">
-            {{ player }}
+				      <player-insight :player="player"/>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
     </div>
 
     <div class="container">
-      {{ currentPlayer }}
+      <player-hand :player="currentPlayer"/>
     </div>
   </div>
 </template>
@@ -39,11 +39,15 @@
 <script>
 import { mapGetters } from 'vuex';
 import Map from "../components/Map";
+import PlayerHand from "../components/PlayerHand";
+import PlayerInsight from "../components/PlayerInsight";
 
 export default {
   name: "board",
   components: {
     'mapmop': Map,
+		'player-hand': PlayerHand,
+		'player-insight': PlayerInsight,
   },
   data() {
     return {
