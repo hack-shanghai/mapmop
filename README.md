@@ -27,3 +27,7 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+World mopping game
+
+## Rules
+You can see the games rules design in [rules.md](rules.md)
