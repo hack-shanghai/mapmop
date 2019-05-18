@@ -1,7 +1,24 @@
 <template>
-  <div class="container">
-    <div class="notification">
-      <Map :cities="cities"/>
+  <div>
+    <div class="container-fluid">
+      <div class="columns">
+        <div class="column is-three-quarters">
+          <div class="box">
+            <Map :cities="cities"/>
+          </div>
+        </div>
+        <div class="column">
+          <div v-for="(player, index) in players" :key="player.uuid">
+            <div v-if="player.uuid != currentPlayer.uuid">
+            {{ player }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      {{ currentPlayer }}
     </div>
   </div>
 </template>
@@ -23,7 +40,15 @@ export default {
     ...mapGetters({
       players: 'players/getPlayers',
       cities: 'board/getCities',
+      init: 'board/isInitialized',
+      currentPlayer: 'players/getCurrentPlayer'
     })
+  },
+  beforeMount() {
+    if(!this.init) {
+      this.$router.replace('/');
+      return;
+    }
   },
   mounted() {
 

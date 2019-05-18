@@ -20,7 +20,7 @@ const Players = {
   },
   getters: {
     getCurrentPlayer(state) {
-      if(state.currentPlayer)
+      if(state.currentPlayer !== null)
         return state.players[state.currentPlayer];
       return null;
     },
@@ -46,12 +46,24 @@ const Players = {
     setCurrentPlayer({ commit }, player) {
       commit('SET_CURRENT_PLAYER', player);
     },
-    init({ commit }) {
+    init({ commit, state, rootGetters }) {
       return new Promise((resolve, reject) => {
         /**
          * Init the first cards in the deck.
          */
+        let cards = rootGetters['decks/getResearchCards'];
+        state.players.forEach((p) => {
+          for(let i = 0; i < 5; i++) {
+            let card = cards.pop();
+            p.cards.push(card);
+            //rootState.dispatch('decks/removeCard', card);
+          }
+        });
 
+        /**
+         * Set the current player.
+         */
+        commit('SET_CURRENT_PLAYER', state.players[0]);
 
         resolve();
       });

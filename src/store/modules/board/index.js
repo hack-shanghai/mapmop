@@ -31,10 +31,14 @@ const Board = {
  *   ]
  * }
  */
+    initialized: false,
     cities: [],
     transitions: [],
   },
   getters: {
+    isInitialized(state) {
+      return state.initialized;
+    },
     getCities(state) {
       return state.cities;
     },
@@ -61,6 +65,7 @@ const Board = {
          * Generate the transitions.
          */
 
+        commit('SET_INIT', true);
         resolve();
       });
     },
@@ -69,6 +74,9 @@ const Board = {
     ADD_CITY(state, city) {
         state.cities.push(city);
     },
+    SET_INIT(state, initialized) {
+      state.initialized = initialized;
+    }
   },
 };
 
