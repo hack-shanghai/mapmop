@@ -1,6 +1,8 @@
 const messages = {
   action: {
     play: 'Play',
+    remove: 'Remove',
+    cancel: 'Cancel',
   },
   form: {
     add_player: {
