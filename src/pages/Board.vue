@@ -69,12 +69,13 @@ export default {
     ...mapGetters({
       settings: 'config/getSettings',
       players: 'players/getPlayers',
+      pollutions: 'config/getPollutions',
       cities: 'board/getCities',
       connections: 'board/getTransitions',
       init: 'board/isInitialized',
       currentPlayer: 'players/getCurrentPlayer',
       cards: 'decks/getCards',
-      cardCount: 'decks/getCount',
+      cardCount: 'decks/getCount'
     })
   },
   beforeMount() {
@@ -123,13 +124,19 @@ export default {
       this.game.action_left--;
 
       if(this.game.action_left < 1) {
-        // TODO: End the round, and switch to the next player.
-
         // Make the next card of the deck visible.
         if(this.cards.length == 0) {
           alert('GAME OVER!');
           return;
         }
+
+        // If the user has space in his hand, we animate the addition of the card in his hand.
+        if(this.currentPlayer.cards.length < this.settings.player_max_deck_size) {
+          this.$store.dispatch('players/addCard', this.cards[0]);
+          this.nextPlayer();
+          return;
+        }
+
         this.game.card = this.cards[0];
 
         // If it's a research card, we let the user choose which card he want to loose.
@@ -163,8 +170,13 @@ export default {
       this.nextPlayer();
     },
     nextPlayer() {
-      // Apply increase of pollution in 2 cities.
-      // TODO
+      // Apply increase of pollution in x cities.
+      let pollutionsKeys = Object.keys(this.pollutions);
+      for(let i = 0; i < this.settings.new_stack_per_turn; i++) {
+        let randCity = Math.floor(Math.rand() * this.cities.length);
+        let randPollution = Math.floor(Math.rand() * pollutionsKeys.length);
+        this.$store.dispatch('board/increasePollution', { city: this.cities[randCity], pollution: pollutionsKeys[randPollution] });
+      }
 
       // Switch player.
       this.$store.dispatch('players/nextPlayer');
@@ -173,6 +185,10 @@ export default {
       this.game.action_left = this.settings.action_per_turn;
       this.game.card = null;
       this.game.disaster = null;
+    },
+    buildResearchCenter(cards) {
+      cards.forEach((card) => this.$store.dispatch('players/removeCard', card));
+      this.$store.dispatch('boards/buildResearchCenter', this.currentPlayer.city);
     },
   },
 };
