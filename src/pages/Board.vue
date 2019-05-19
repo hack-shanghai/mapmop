@@ -17,7 +17,7 @@
       <div class="columns">
         <div class="column is-three-quarters">
           <div class="box">
-            <mapmop :cities="cities" :connections="connections"/>
+            <mapmop :cities="cities" :connections="connections" @click="onMapClick"/>
           </div>
         </div>
         <div class="column">
@@ -81,6 +81,11 @@ export default {
   mounted() {},
   methods: {
     onMapClick(city) {
+      if(this.game.action_left < 1) {
+        alert('No more action available!');
+        return;
+      }
+
       /**
        * If the user is in the city, we decrease a pollution.
        */
@@ -107,7 +112,7 @@ export default {
         .then(() => {
           this.decreaseAction();
         }).catch(() => {
-          // TODO: Display message, cannot move there.
+          alert("Cannot move to a city not linked with your current city!");
         });
     },
     decreaseAction() {

@@ -89,12 +89,11 @@ const Players = {
         resolve();
       });
     },
-    moveToCity({ commit, state, rootGetters }, city) {
+    moveToCity({ commit, getters, rootGetters }, city) {
 
-      let player = state.currentPlayer;
-
+      let player = getters.getCurrentPlayer;
       return new Promise((resolve, reject) => {
-        if(!rootGetters['board/getTransitions'].some((transition) => {
+        let cityFound = rootGetters['board/getTransitions'].some((transition) => {
           if(player.city.uuid == transition.city1 && city.uuid == transition.city2) {
             return true;
           }
@@ -102,7 +101,9 @@ const Players = {
             return true;
           }
           return false;
-        })) {
+        });
+
+        if(!cityFound) {
           reject();
           return;
         }
@@ -129,7 +130,7 @@ const Players = {
       state.currentPlayer = state.players.indexOf(player);
     },
     CHANGE_CITY(state, city) {
-      state.currentPlayer.city = city;
+      state.players[state.currentPlayer].city = city;
     },
   },
 };
