@@ -132,7 +132,9 @@ export default {
 
         // If the user has space in his hand, we animate the addition of the card in his hand.
         if(this.currentPlayer.cards.length < this.settings.player_max_deck_size) {
-          this.$store.dispatch('players/addCard', this.cards[0]);
+          let card = this.cards[0];
+          this.$store.dispatch('decks/removeCard', card);
+          this.$store.dispatch('players/addCard', card);
           this.nextPlayer();
           return;
         }
