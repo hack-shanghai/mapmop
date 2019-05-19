@@ -74,6 +74,7 @@ export default {
 }
 
 .throw-icon{
+  cursor: pointer;
   position: absolute;
   margin-top: -185px;
   margin-left: 55px;

@@ -78,7 +78,7 @@ export default {
     cardUsable(card) {
       if (this.usedCards.length == 0) {
         let locationMatch = card.city.uuid == this.player.city.uuid;
-        let availableTypesCount = this.player.cards.filter((current) => {return card.uuid != current.uuid && card.city.pollution == current.city.pollution}).length > 3;
+        let availableTypesCount = this.player.cards.filter((current) => {return card.pollution == current.pollution}).length > 2;
         return locationMatch && availableTypesCount;
       }
       else {
@@ -125,7 +125,11 @@ export default {
     },
     getCityBuildingSrc(type) {
       if (type  == 'research') {
-        return `buildings/${this.player.city.pollution}-icon.jpg`;
+        console.log(this.player.city);
+        return `buildings/research-icon.png`;
+      }
+      else if (type == undefined) {
+        return `buildings/research-icon.png`;
       }
       else {
         console.log(`Unknown building ${type}`);
@@ -179,11 +183,11 @@ export default {
 }
 
 .pollution-stack {
-  height: 60px;
+  height: 50px;
 }
 
 .building-stack{
-  height: 20px;
+  height: 50px;
 }
 
 .player-character {
