@@ -33,6 +33,12 @@
     <div class="container">
       <player-hand :player="currentPlayer"/>
     </div>
+
+    <div class="container">
+      <div v-for="card in cards" :key="card.uuid">
+        {{ card.city.name }} - {{ card.pollution }} - {{ card.type }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,7 +68,8 @@ export default {
       cities: "board/getCities",
       connections: "board/getTransitions",
       init: "board/isInitialized",
-      currentPlayer: "players/getCurrentPlayer"
+      currentPlayer: "players/getCurrentPlayer",
+      cards: "decks/getCards",
     })
   },
   beforeMount() {

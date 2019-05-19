@@ -17,8 +17,7 @@ const Decks = {
      *   name: 'Name of the card',
      *   type: 'disaster|research',
      *   pollution: 'Type of pollution (nuclear, weather, waste)',
-     *   description: 'Description of the card',
-     *   image: 'URL of the image',
+     *   disaster: 'Disaster associated to the card.',
      *   city: 'UUID of the city',
      * }
      */
@@ -35,6 +34,7 @@ const Decks = {
   actions: {
     init(context) {
       return new Promise(resolve => {
+        let settings = context.rootGetters["config/getSettings"];
         let pollutions = context.rootGetters["config/getPollutions"];
         let cities = context.rootGetters["board/getCities"];
 
@@ -49,17 +49,38 @@ const Decks = {
           let card = {
             uuid: "cardid" + generate("1234567890", 10),
             name: city.name,
-
             type: "research",
             pollution: pollutionsArray[count % pollutionsArray.length],
-            description: "", // TODO: Define from city
-            image: "", // TODO: Define from city
             city: city
           };
 
           context.commit("ADD_CARD", card);
           count++;
         });
+
+        /**
+         *  Create cards disasters.
+         */
+        for(let i = 0; i < settings.disasters_per_deck; i++) {
+          let city = cities[i];
+
+          let pollutionType = pollutionsArray[count % pollutionsArray.length];
+
+          let disasters = city.disasters[pollutionType];
+          shuffle(disasters);
+
+          let card = {
+            uuid: "cardid" + generate("1234567890", 10),
+            name: city.name,
+            type: "disaster",
+            pollution: pollutionType,
+            disaster: disasters[0],
+            city: city
+          };
+
+          context.commit("ADD_CARD", card);
+          count++;
+        }
 
         context.commit("SHUFFLE_CARD");
 

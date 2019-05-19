@@ -7,7 +7,8 @@
     "turns": 10,
     "new_stack_per_turn": 3,
     "disaster_stack_level": 3,
-    "game_over_disaster_city_ratio": 0.5
+    "game_over_disaster_city_ratio": 0.5,
+    "disasters_per_deck": 5
   },
   "characters": {
     "ecolo": {
