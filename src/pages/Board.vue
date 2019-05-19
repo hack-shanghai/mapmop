@@ -128,11 +128,11 @@ export default {
         // TODO: End the round, and switch to the next player.
 
         // Make the next card of the deck visible.
-        if(cards.length == 0) {
+        if(this.cards.length == 0) {
           alert('GAME OVER!');
           return;
         }
-        this.game.card = cards[0];
+        this.game.card = this.cards[0];
 
         // If it's a research card, we let the user choose which card he want to loose.
         if (this.game.card.type == 'research') {
@@ -148,7 +148,7 @@ export default {
       let newCard = this.game.card;
       this.game.card = null;
       if(this.game.card.uuid == card.uuid) {
-        nextPlayer();
+        this.nextPlayer();
         return;
       }
 
@@ -158,11 +158,11 @@ export default {
       // Add the card in the players deck.
       this.$store.dispatch('players/addCard', newCard);
 
-      nextPlayer();
+      this.nextPlayer();
     },
     applyDisaster() {
       this.$store.dispatch('decks/removeCard', this.game.card);
-      nextPlayer();
+      this.nextPlayer();
     },
     nextPlayer() {
       // Apply increase of pollution in 2 cities.
