@@ -6,7 +6,7 @@
       <div class="player-summary">
         <img :src="getPlayerImgSrc" class="player-character">
         <div player-names>
-          <h1>{{ player.name }}</h1>
+          <h1><div class="player-avatar-mask" :style="{'background-color': getPlayerColor}"></div>{{ player.name }}</h1>
           <h2>{{ player.character }}</h2>
         </div>
       </div>
@@ -58,7 +58,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      pollutions: 'config/getPollutions'
+      pollutions: 'config/getPollutions',
+      characters: 'config/getCharacters'
     }),
     getPlayerImgSrc() {
       return `characters/${this.player.character}.jpg`;
@@ -66,6 +67,9 @@ export default {
     getCityImgSrc() {
       return `cities/${this.player.city.name.toLowerCase().replace(' ', '_')}.jpg`;
     },
+    getPlayerColor() {
+      return this.characters[this.player.character].color;
+    }
   },
   mounted() {
     this.$refs.playerCityImage.onerror = this.handleImgError;
@@ -98,7 +102,7 @@ export default {
         this.useCard(card);
       }
     },
-    UseCard(card) {
+    useCard(card) {
       if (!this.cardUsable(card)) {
         return
       }
@@ -187,6 +191,14 @@ export default {
   height: 100px;
   padding: 6px;
   border-radius: 30px;
+}
+
+.player-avatar-mask {
+  margin-right: 2px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  mask-image: url(/avatar.svg);
 }
 
 .player-names {
