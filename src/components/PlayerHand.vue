@@ -102,7 +102,7 @@ export default {
         this.useCard(card);
       }
     },
-    UseCard(card) {
+    useCard(card) {
       if (!this.cardUsable(card)) {
         return
       }
