@@ -1,6 +1,6 @@
 {
   "settings": {
-    "player_max_deck_size": 3,
+    "player_max_deck_size": 5,
     "players_city_ratio": 10,
     "city_link_ratio": 2,
     "cards_per_turn": 2,
@@ -8,7 +8,7 @@
     "new_stack_per_turn": 3,
     "disaster_stack_level": 3,
     "game_over_disaster_city_ratio": 0.5,
-    "disasters_per_deck": 3
+    "disasters_per_deck": 5
   },
   "characters": {
     "ecologist": {
@@ -75,7 +75,7 @@
     },
     "waste": {
       "name": "Waste pollution",
-      "color": "#993333",
+      "color": "#bb5555",
       "description": "",
       "icon": ""
     }
