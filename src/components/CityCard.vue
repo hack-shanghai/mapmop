@@ -1,6 +1,17 @@
 <template>
   <div>
-    <card :class="getSize()" :header_image="citySrc()" :default_image="defaultCitySrc" :tag_image="pollutionSrc()" :footer_image="buildingSrc()" :title="card.name" :description="card.description" :color="getColor()"/>
+    <card
+      :class="{'small': small, 'usable': usable, 'used': used}"
+      :header_image="citySrc"
+      :default_image="defaultCitySrc"
+      :tag_image="pollutionSrc"
+      :footer_image="buildingSrc"
+      :title="card.name"
+      :description="card.description"
+      :color="getColor"
+      :usable="usable"
+      @click="$emit('click', card)"
+    />
   </div>
 </template>
 
@@ -11,7 +22,9 @@ export default {
   name: 'CityCard',
   props: {
     card: Object,
-    small: Boolean
+    small: Boolean,
+    usable: Boolean,
+    used: Boolean
   },
   data() {
     return {
@@ -21,9 +34,7 @@ export default {
   computed: {
     ...mapGetters({
       pollutions: 'config/getPollutions'
-    })
-  },
-  methods: {
+    }),
     citySrc() {
       let path = `cities/${this.card.name.toLowerCase().replace(' ', '_')}.jpg`;
       return path;
@@ -39,13 +50,19 @@ export default {
     getColor() {
      return this.pollutions[this.card.pollution].color;
     },
-    getSize() {
-      return this.small ? "small" : "";
-    }
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.card.usable {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+.card.used {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
 </style>
