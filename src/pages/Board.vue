@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       game: {
-        action_left: 3,
+        action_left: 0,
         card: null,
         disaster: null
       }
@@ -67,13 +67,15 @@ export default {
   },
   computed: {
     ...mapGetters({
-      players: "players/getPlayers",
-      cities: "board/getCities",
-      connections: "board/getTransitions",
-      init: "board/isInitialized",
-      currentPlayer: "players/getCurrentPlayer",
-      cards: "decks/getCards",
-      cardCount: "decks/getCount"
+      settings: 'config/getSettings',
+      players: 'players/getPlayers',
+      pollutions: 'config/getPollutions',
+      cities: 'board/getCities',
+      connections: 'board/getTransitions',
+      init: 'board/isInitialized',
+      currentPlayer: 'players/getCurrentPlayer',
+      cards: 'decks/getCards',
+      cardCount: 'decks/getCount'
     })
   },
   beforeMount() {
@@ -82,7 +84,9 @@ export default {
       return;
     }
   },
-  mounted() {},
+  mounted() {
+    this.game.action_left = this.settings.action_per_turn;
+  },
   methods: {
     onMapClick(city) {
       if (this.game.action_left < 1) {
@@ -97,17 +101,12 @@ export default {
         /**
          * If there is no pollution to decrease, we ignore the click.
          */
-        if (
-          city.pollutions.waste == 0 &&
-          city.pollutions.nuclear == 0 &&
-          city.weather == 0
-        ) {
-          return;
+        if(!Object.keys(city.pollutions).some((k) => city.pollutions[k] > 0)) {
+          this.$store.dispatch('board/decreasePollution', city)
+          .then(() => {
+            this.decreaseAction();
+          });
         }
-
-        // TODO: Decreate a pollution.
-
-        this.decreaseAction();
         return;
       }
 
@@ -126,14 +125,22 @@ export default {
     decreaseAction() {
       this.game.action_left--;
 
-      if (this.game.action_left < 1) {
-        // TODO: End the round, and switch to the next player.
-
+      if(this.game.action_left < 1) {
         // Make the next card of the deck visible.
         if (this.cards.length == 0) {
           alert("GAME OVER!");
           return;
         }
+
+        // If the user has space in his hand, we animate the addition of the card in his hand.
+        if(this.currentPlayer.cards.length < this.settings.player_max_deck_size) {
+          let card = this.cards[0];
+          this.$store.dispatch('decks/removeCard', card);
+          this.$store.dispatch('players/addCard', card);
+          this.nextPlayer();
+          return;
+        }
+
         this.game.card = this.cards[0];
 
         // If it's a research card, we let the user choose which card he want to loose.
@@ -167,17 +174,26 @@ export default {
       this.nextPlayer();
     },
     nextPlayer() {
-      // Apply increase of pollution in 2 cities.
-      // TODO
+      // Apply increase of pollution in x cities.
+      let pollutionsKeys = Object.keys(this.pollutions);
+      for(let i = 0; i < this.settings.new_stack_per_turn; i++) {
+        let randCity = Math.floor(Math.rand() * this.cities.length);
+        let randPollution = Math.floor(Math.rand() * pollutionsKeys.length);
+        this.$store.dispatch('board/increasePollution', { city: this.cities[randCity], pollution: pollutionsKeys[randPollution] });
+      }
 
       // Switch player.
       this.$store.dispatch("players/nextPlayer");
 
       // Reset turn parameter
-      this.game.action_left = 3;
+      this.game.action_left = this.settings.action_per_turn;
       this.game.card = null;
       this.game.disaster = null;
-    }
-  }
+    },
+    buildResearchCenter(cards) {
+      cards.forEach((card) => this.$store.dispatch('players/removeCard', card));
+      this.$store.dispatch('boards/buildResearchCenter', this.currentPlayer.city);
+    },
+  },
 };
 </script>

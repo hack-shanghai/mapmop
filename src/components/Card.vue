@@ -1,6 +1,6 @@
 <template>
-  <div class="card" :style="{'background-color': color}">
-    <img class="header-img" :src="header_image" ref="mainImage"/>
+  <div class="card" :style="{'background-color': color}" @click="$emit('click')">
+    <img v-if="header_image" class="header-img" :src="header_image" ref="mainImage"/>
     <img v-if="tag_image" class="tag-img" :src="tag_image"/>
     <h1>{{ title }}</h1>
     <img v-if="footer_image" class="footer-img" :src="footer_image"/>
@@ -18,7 +18,7 @@ export default {
     footer_image:String,
     title: String,
     description: String,
-    color: String
+    color: String,
   },
   mounted() {
     this.$refs.mainImage.onerror = this.handleImgError;
@@ -98,4 +98,10 @@ h1 {
   font-weight: bold;
   margin: 0px;
 }
+
+.card.usable {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 </style>

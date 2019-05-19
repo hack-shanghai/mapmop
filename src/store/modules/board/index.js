@@ -18,6 +18,7 @@ const Board = {
  *         weather: 0,
  *         nuclear: 0,
  *       },
+ *       pollution: 'Pollution key',
  *       buildings: [
  *
  *       ],
@@ -55,7 +56,10 @@ const Board = {
     }},
   },
   actions: {
-    init({ commit }) {
+    init({ commit, rootGetters }) {
+
+      let pollutions = rootGetters['config/getPollutions'];
+
       return new Promise(resolve => {
         /**
          * Load the list of cities.
@@ -67,11 +71,8 @@ const Board = {
           /**
            * Define the property of the city.
            */
-          city.pollutions = { // FIXME: Make this init dynamic.
-            waste: 0,
-            weather: 0,
-            nuclear: 0
-          };
+          city.pollutions = {};
+          Object.keys(pollutions).forEach((k) => city.pollutions[k] = 0)
           city.buildings = [];
 
           commit('ADD_CITY', {city_key, city});
@@ -88,10 +89,8 @@ const Board = {
         resolve();
       });
     },
-    // eslint-disable-next-line
-    increasePollution({ commit, dispatch }, { city, pollution }) {
-      // eslint-disable-next-line
-      return new Promise((resolve, reject) => {
+    increasePollution({ commit }, { city, pollution }) {
+      return new Promise((resolve) => {
         // If pollution is over 3, we dispatch 1 more to the cities linked to it.
 
         let total = 0;
@@ -134,7 +133,7 @@ const Board = {
     },
     SET_INIT(state, initialized) {
       state.initialized = initialized;
-    }
+    },
   }
 };
 
