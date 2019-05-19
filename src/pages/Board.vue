@@ -100,15 +100,12 @@ export default {
         /**
          * If there is no pollution to decrease, we ignore the click.
          */
-        if(city.pollutions.waste == 0 &&
-          city.pollutions.nuclear == 0 &&
-          city.weather == 0) {
-          return;
+        if(!Object.keys(city.pollutions).some((k) => city.pollutions[k] > 0)) {
+          this.$store.dispatch('board/decreasePollution', city)
+          .then(() => {
+            this.decreaseAction();
+          });
         }
-
-        // TODO: Decreate a pollution.
-
-        this.decreaseAction();
         return;
       }
 
