@@ -1,100 +1,104 @@
 {
-	"settings": {
-		"players_city_ratio": 10,
-		"city_link_ratio": 2,
-		"cards_per_turn": 2,
-		"turns": 10,
-		"new_stack_per_turn": 3,
-		"disaster_stack_level": 3,
-		"game_over_disaster_city_ratio": 0.5
-	},
-	"characters": {
-		"ecolo": {
-			"name": "Ecolo",
-			"description": "",
-			"ability": "The city pollutions do not grow while the ecologist is there."
-		},
-		"journalist": {
-			"name": "Journalist",
-			"description": "",
-			"ability": "Remove 2 pollutions point from different location whenever a location spreading level."
-		},
-		"dictator": {
-			"name": "Dictator",
-			"description": "",
-			"ability": "Can move each turn a pollution from his location to a nearby city."
-		},
-		"politician": {
-			"name": "Politician",
-			"description": "",
-			"ability": "Cleaning cost 2 actions, Displacement action can make him move of 2 steps."
-		},
-		"alien": {
-			"name": "Alien",
-			"description": "",
-			"ability": "Can once per game erase a city from the map. everything is lost, building and pollutions."
-		},
-		"nuclear_scientist": {
-			"name": "Nuclear Scientist",
-			"description": "",
-			"ability": "Cleaning can clean up to 2 nuclear pollution stack."
-		},
-		"kaitera_saesman": {
-			"name": "Kaitera Saesman",
-			"description": "",
-			"ability": "Cleaning can clean up to 2 air pollution stack."
-		},
-		"dustman": {
-			"name": "Dustman",
-			"description": "",
-			"ability": "Cleaning can clean up to 2 Waaste pollution stack."
-		}
-	},
-	"pollutions": {
-		"nuclear": {
-			"name": "Nuclear pollution",
-			"color": "#ff9900",
-			"description": "",
-			"icon": ""
-		},
-		"weather": {
-			"name": "Weather pollution",
-			"color": "#3399ff",
-			"description": "",
-			"icon": ""
-		},
-		"waste": {
-			"name": "Waste pollution",
-			"color": "#993333",
-			"description": "",
-			"icon": ""
-		}
-	},
-	"crisis": {
-		"nuclear_explosion": {
-			"name": "Nuclear Explosion",
-			"description": "A big nuclear explosion. I told ya this shit was dangerous."
-		},
-		"pollution_cloud": {
-			"name": "Pollution cloud",
-			"description": "Fucking neighbors, we need to wear gaz-masks now."
-		},
-		"waste_outbreak": {
-			"name": "Waste Outbreak",
-			"description": "Fucking neighbors, we need to wear gaz-masks now"
-		}
-	},
-	"buildings": {
-		"research_center": [
-			{
-				"building_cost":3
-			},
-			{
-				"building_cost":4
-			},
-			{
-				"building_cost":5
-			},
-		]
-	}
+  "settings": {
+    "player_max_deck_size": 5,
+    "players_city_ratio": 10,
+    "city_link_ratio": 2,
+    "cards_per_turn": 2,
+    "turns": 10,
+    "new_stack_per_turn": 3,
+    "disaster_stack_level": 3,
+    "game_over_disaster_city_ratio": 0.5
+  },
+  "characters": {
+    "ecolo": {
+      "name": "Ecolo",
+      "description": "",
+      "ability": "The city pollutions do not grow while the ecologist is there."
+    },
+    "journalist": {
+      "name": "Journalist",
+      "description": "",
+      "ability": "Remove 2 pollutions point from different location whenever a location spreading level."
+    },
+    "dictator": {
+      "name": "Dictator",
+      "description": "",
+      "ability": "Can move each turn a pollution from his location to a nearby city."
+    },
+    "politician": {
+      "name": "Politician",
+      "description": "",
+      "ability": "Cleaning cost 2 actions, Displacement action can make him move of 2 steps."
+    },
+    "alien": {
+      "name": "Alien",
+      "description": "",
+      "ability": "Can once per game erase a city from the map. everything is lost, building and pollutions."
+    },
+    "nuclear_scientist": {
+      "name": "Nuclear Scientist",
+      "description": "",
+      "ability": "Cleaning can clean up to 2 nuclear pollution stack."
+    },
+    "kaitera_saesman": {
+      "name": "Kaitera Saesman",
+      "description": "",
+      "ability": "Cleaning can clean up to 2 air pollution stack."
+    },
+    "dustman": {
+      "name": "Dustman",
+      "description": "",
+      "ability": "Cleaning can clean up to 2 Waaste pollution stack."
+    }
+  },
+  "pollutions": {
+    "nuclear": {
+      "name": "Nuclear pollution",
+      "color": "#ff9900",
+      "description": "",
+      "icon": ""
+    },
+    "weather": {
+      "name": "Weather pollution",
+      "color": "#3399ff",
+      "description": "",
+      "icon": ""
+    },
+    "waste": {
+      "name": "Waste pollution",
+      "color": "#993333",
+      "description": "",
+      "icon": ""
+    }
+  },
+  "crisis": {
+    "nuclear_explosion": {
+      "name": "Nuclear Explosion",
+      "description": "A big nuclear explosion. I told ya this shit was dangerous.",
+      "image": ""
+    },
+    "pollution_cloud": {
+      "name": "Pollution cloud",
+      "description": "Fucking neighbors, we need to wear gaz-masks now.",
+      "image": ""
+    },
+    "waste_outbreak": {
+      "name": "Waste Outbreak",
+      "description": "Fucking neighbors, we need to wear gaz-masks now",
+      "image": ""
+    }
+  },
+  "buildings": {
+    "research_center": [
+      {
+        "building_cost":3
+      },
+      {
+        "building_cost":4
+      },
+      {
+        "building_cost":5
+      }
+    ]
+  }
 }

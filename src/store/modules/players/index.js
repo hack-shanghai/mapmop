@@ -1,5 +1,13 @@
 const generate = require("nanoid/generate");
 
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 const Players = {
   namespaced: true,
   state: {
@@ -45,24 +53,38 @@ const Players = {
     setCurrentPlayer({ commit }, player) {
       commit("SET_CURRENT_PLAYER", player);
     },
-    init({ commit, state, rootGetters }) {
+    init(context) {
       return new Promise(resolve => {
         /**
          * Init the first cards in the deck.
          */
-        let cards = rootGetters["decks/getResearchCards"];
-        state.players.forEach(p => {
-          for (let i = 0; i < 5; i++) {
+
+        let cards = context.rootGetters["decks/getResearchCards"];
+        let cities = context.rootGetters["board/getCities"];
+        let characters = context.rootGetters["config/getCharacters"];
+        let settings = context.rootGetters["config/getSettings"];
+
+        let charactersArray = Object.keys(characters);
+        shuffle(charactersArray);
+        let count = 0;
+        context.state.players.forEach(p => {
+          let rand = Math.floor(Math.random() * cities.length);
+          p.city = cities[rand];
+          for (let i = 0; i < settings.player_max_deck_size; i++) {
             let card = cards.pop();
-            p.cards.push(card);
-            //rootState.dispatch('decks/removeCard', card);
+            if (card) {
+              p.cards.push(card);
+              context.dispatch("decks/removeCard", card, { root: true });
+            }
           }
+          p.character = charactersArray[count % charactersArray.length];
+          count++;
         });
 
         /**
          * Set the current player.
          */
-        commit("SET_CURRENT_PLAYER", state.players[0]);
+        context.commit("SET_CURRENT_PLAYER", context.state.players[0]);
 
         resolve();
       });

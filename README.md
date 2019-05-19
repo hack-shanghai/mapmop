@@ -1,4 +1,5 @@
 # mapmop
+World mopping game
 
 ## Project setup
 ```
@@ -17,7 +18,7 @@ npm run serve
 
 #### Docker:
 ```
-docker run -v <path to project>/mapmop:/app -p 8080:8080 mapmop npm run serve
+docker run --rm --name mapmop -v ~/Projects//mapmop:/app -p 8080:8080 mapmop npm install && npm run serve 
 ```
 
 You game is now available in your browser at http://localhost:8080
@@ -44,7 +45,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-World mopping game
 
 ## Rules
 You can see the games rules design in [rules.md](rules.md)

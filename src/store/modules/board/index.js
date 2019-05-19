@@ -45,6 +45,10 @@ const Board = {
     },
     getTransitions(state) {
       return state.transitions;
+    },
+    getCity(state, city_uuid) {
+      if (!city_uuid) return null;
+      return state.cities.filter(c => c.uuid == city_uuid)[0];
     }
   },
   actions: {
@@ -58,7 +62,12 @@ const Board = {
            * Define the property of the city.
            */
           city.uuid = "cid" + generate("1234567890", 10);
-
+          city.pollutions = {
+            waste: 0,
+            weather: 0,
+            nuclear: 0
+          };
+          city.buildings = [];
           commit("ADD_CITY", city);
         });
 

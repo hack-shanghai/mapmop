@@ -16,7 +16,7 @@
       <vl-interaction-select @select="selectMap"></vl-interaction-select>
       <!--// interactions -->
 
-      <vl-feature v-for="(city, index) in cities" :key="index+city" :city="city">
+      <vl-feature v-for="(city, index) in cities" :key="'city_' + index" :city="city">
         <vl-geom-point :coordinates="[city.lon, city.lat]"></vl-geom-point>
         <!-- <vl-style-box>
           <vl-style-icon src="assets/dot.png" ></vl-style-icon>
@@ -26,7 +26,7 @@
         </vl-style-box>
       </vl-feature>
 
-      <vl-feature v-for="(coord, indexCoord) in connectionsCordinates" :key="indexCoord">
+      <vl-feature v-for="(coord, index) in connectionsCordinates" :key="'transition_' + index">
         <vl-geom-line-string :coordinates="[coord.coord1,coord.coord2]"></vl-geom-line-string>
       </vl-feature>
 
@@ -71,7 +71,7 @@ export default {
     };
   },
   methods: {
-    selectMap({ feature, map }) {
+    selectMap({ feature }) {
       const city = feature.vm[0].$attrs.city;
       if (city) {
         this.$emit("onClick", city);
