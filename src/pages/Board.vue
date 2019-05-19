@@ -28,6 +28,22 @@
     <div class="container-fluid">
       <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card" @throw="cardSelectedToDelete" @building="buildResearchCenter"/>
     </div>
+
+    <div :class="{'is-active': game.disaster}" class="modal">
+      <div class="modal-background"></div>
+      <div class="modal-content">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Disaster!</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          {{ game.disaster }}
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success" @click="applyDisaster">OK</button>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -191,6 +207,10 @@ export default {
       this.game.disaster = null;
     },
     buildResearchCenter(cards) {
+      if (this.game.action_left < 1) {
+        alert("No more action available!");
+        return;
+      }
       cards.forEach((card) => this.$store.dispatch('players/removeCard', card));
       this.$store.dispatch('board/buildResearchCenter', { city: this.currentPlayer.city, pollution: null });
     },
