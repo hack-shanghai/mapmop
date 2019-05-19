@@ -1,29 +1,44 @@
 <template>
   <div class="player-hand">
-    <div class="columns">
-      <div class="player-panel">
-        <div class="player-header">
-          <img :src="getPlayerImgSrc()" class="player-character">
-          <div player-names>
-            <h1>{{ player.name }}</h1>
-            <h2>{{ player.character }}</h2>
-          </div>
+
+
+    <div class="player-status">
+      <div class="player-summary">
+        <img :src="getPlayerImgSrc()" class="player-character">
+        <div player-names>
+          <h1>{{ player.name }}</h1>
+          <h2>{{ player.character }}</h2>
         </div>
+      </div>
+
+      <div class="city-summary">
         <div>
           <img :src="getCityImgSrc()" class="city-image" ref="playerCityImage">
           <p class="city-name">{{ player.city.name }}</p>
         </div>
-        <div v-for="(pollution_data, pollution) in pollutions">
-          <img class="pollution-stack" v-for="stacks in pollutionStack(pollution)" :src="pollutionImgSrc(pollution)" style="background-color: black;">
-        </div>
-        <div>
-          <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc()">
+        <div class="city-stacks">
+          <p>Pollutions:</p>
+          <div class="pollution-stack">
+            <div v-for="(pollution_data, pollution) in pollutions">
+              <img class="pollution-stack" v-for="stacks in pollutionStack(pollution)" :src="pollutionImgSrc(pollution)" style="background-color: black;">
+            </div>
+          </div>
+          <p>Buildings:</p>
+          <div class="building-stack">
+            <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc()">
+          </div>
         </div>
       </div>
+    </div>
+
+    <div class="columns">
       <div class="column" v-for="card in player.cards" :key="card.uuid">
         <city-card :card="card"/>
       </div>
     </div>
+
+    <deck style="width: 30%"/>
+
   </div>
 </template>
 
@@ -73,19 +88,53 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.player-panel {
-  width: 300px;
-  wmax-idth: 300px;
-}
-
-.player-header {
+.player-hand {
+  width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
+}
+
+.player-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.player-summary {
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.city-summary {
+  border: 6px;
+  width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.city-stacks {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.pollution-stack {
+  height: 60px;
+}
+
+.building-stack{
+  height: 20px;
 }
 
 .player-character {
+  width: 100px;
+  height: 100px;
   padding: 6px;
-  width: 50%;
+  border-radius: 30px;
 }
 
 .player-names {
@@ -96,12 +145,11 @@ export default {
 }
 
 .city-image {
-  border-radius: 25px;
-  max-width: 100%;
+  max-width: 300px;
 }
 
 .city-name {
-  width: 288px;
+  width: 300px;
   position: absolute;
   margin-top: -100px;
   text-align: center;

@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container-fluid">
       <player-hand v-if="currentPlayer" :player="currentPlayer"/>
     </div>
   </div>

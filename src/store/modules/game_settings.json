@@ -63,19 +63,19 @@
   "pollutions": {
     "nuclear": {
       "name": "Nuclear pollution",
-      "color": "#ff9900",
+      "color": "#dd8800",
       "description": "",
       "icon": ""
     },
     "weather": {
       "name": "Weather pollution",
-      "color": "#3399ff",
+      "color": "#0066aa",
       "description": "",
       "icon": ""
     },
     "waste": {
       "name": "Waste pollution",
-      "color": "#bb5555",
+      "color": "#882222",
       "description": "",
       "icon": ""
     }

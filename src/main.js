@@ -64,6 +64,8 @@ Vue.component("card", Card);
 import CityCard from "./components/CityCard";
 Vue.component("city-card", CityCard);
 
+import Deck from "./components/Deck";
+Vue.component("deck", Deck);
 /**
  * Load the Vue App.
  */
