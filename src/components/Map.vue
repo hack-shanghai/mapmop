@@ -18,17 +18,52 @@
 
       <vl-feature v-for="(ctd, index) in cityToDisplay" :key="'city_' + index" :city="ctd.city">
         <vl-geom-point :coordinates="[ctd.city.lon, ctd.city.lat]"></vl-geom-point>
+        <!-- Nuclear -->
+        <vl-style-box>
+          <vl-style-icon
+            src="../assets/dot.png"
+            :color="ctd.colorNuclear"
+            :scale="ctd.scaleNuclear"
+            :anchor="[20/ctd.scaleNuclear+10, 1.5]"
+            anchorXUnits="pixels"
+          ></vl-style-icon>
+        </vl-style-box>
+        <!-- Weather -->
+        <vl-style-box>
+          <vl-style-icon
+            src="../assets/dot.png"
+            :color="ctd.colorWeather"
+            :scale="ctd.scaleWeather"
+            :anchor="[20/ctd.scaleWeather+10, 0.5]"
+            anchorXUnits="pixels"
+          ></vl-style-icon>
+        </vl-style-box>
         <!-- Waste -->
         <vl-style-box>
           <vl-style-icon
             src="../assets/dot.png"
-            :color="[22,44,66]"
-            :anchor="[1.5, 0.5]"
+            :color="ctd.colorWaste"
             :scale="ctd.scaleWaste"
+            :anchor="[20/ctd.scaleWaste+10, -0.5]"
+            anchorXUnits="pixels"
           ></vl-style-icon>
         </vl-style-box>
+        <!-- City -->
         <vl-style-box>
-          <vl-style-icon src="../assets/place-marker.png"></vl-style-icon>
+          <vl-style-icon src="../assets/place-marker.png" :anchor="[0.5, 0.5]"></vl-style-icon>
+        </vl-style-box>
+        <!-- Players -->
+        <vl-style-box
+          v-for="(player, indexPlayer) in ctd.playersForCity"
+          :key="'player_' + indexPlayer"
+        >
+          <vl-style-icon
+            src="../assets/avatar.png"
+            :color="player.colorPlayer"
+            :anchor="[-10, 1.0 ]"
+            :scale="0.7"
+            anchorXUnits="pixels"
+          ></vl-style-icon>
         </vl-style-box>
       </vl-feature>
 
@@ -84,45 +119,66 @@ export default {
     // calculate the things to display for each city
     cityToDisplay() {
       const cityDisplay = this.cities.map(city => {
-        // const playersForCity = this.players.find(
-        //   player => city.uuid === player.city
-        // );
-        // playersForCity.map(player => {
-        //   let color = this.characters.ecolo.color;
-        //   if (player.character === "journalist") {
-        //     color = this.characters.journalist.color;
-        //   }
-        //   if (player.character === "dictator") {
-        //     color = this.characters.dictator.color;
-        //   }
-        //   if (player.character === "politician") {
-        //     color = this.characters.politician.color;
-        //   }
-        //   if (player.character === "alien") {
-        //     color = this.characters.alien.color;
-        //   }
-        //   if (player.character === "nuclear_scientist") {
-        //     color = this.characters.nuclear_scientist.color;
-        //   }
-        //   if (player.character === "kaitera_saesman") {
-        //     color = this.characters.kaitera_saesman.color;
-        //   }
-        //   if (player.character === "dustman") {
-        //     color = this.characters.dustman.color;
-        //   }
-        //   return {
-        //     player,
-        //     color
-        //   };
-        // });
+        const playersForCity = this.players.filter(player => {
+          // console.log("city.uuid: " + city.uuid);
+          // console.log("player.city.uuid: " + player.city.uuid);
+          if (city.uuid === player.city.uuid) {
+            return true;
+          } else {
+            return false;
+          }
+        });
+
+        const playersWithColor = playersForCity.map(player => {
+          let colorPlayer = this.characters.ecologist.color;
+          if (player.character === "journalist") {
+            colorPlayer = this.characters.journalist.color;
+          }
+          if (player.character === "dictator") {
+            colorPlayer = this.characters.dictator.color;
+          }
+          if (player.character === "politician") {
+            colorPlayer = this.characters.politician.color;
+          }
+          if (player.character === "alien") {
+            colorPlayer = this.characters.alien.color;
+          }
+          if (player.character === "nuclear_scientist") {
+            colorPlayer = this.characters.nuclear_scientist.color;
+          }
+          if (player.character === "kaitera_saesman") {
+            colorPlayer = this.characters.kaitera_saesman.color;
+          }
+          if (player.character === "dustman") {
+            colorPlayer = this.characters.dustman.color;
+          }
+          return {
+            colorPlayer: colorPlayer,
+            player
+          };
+        });
+
         return {
           city: city,
-          scaleWaste: 1 + city.pollutions.waste * 0.5,
-          scaleNuclear: city.pollutions.nuclear * 0.5,
-          scaleWeather: city.pollutions.weather * 0.5
-          // players: playersForCity
+          colorNuclear: this.pollutions.nuclear.color,
+          colorWeather: this.pollutions.weather.color,
+          colorWaste: this.pollutions.waste.color,
+          scaleWaste:
+            city.pollutions.waste && city.pollutions.waste !== 0
+              ? 0.2 + city.pollutions.waste * 0.2
+              : 0,
+          scaleNuclear:
+            city.pollutions.nuclear && city.pollutions.nuclear !== 0
+              ? 0.2 + city.pollutions.nuclear * 0.2
+              : 0,
+          scaleWeather:
+            city.pollutions.weather && city.pollutions.weather !== 0
+              ? 0.2 + city.pollutions.weather * 0.2
+              : 0,
+          playersForCity: playersWithColor
         };
       });
+
       return cityDisplay;
     }
   },
