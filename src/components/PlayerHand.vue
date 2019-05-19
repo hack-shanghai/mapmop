@@ -4,7 +4,7 @@
 
     <div class="player-status">
       <div class="player-summary">
-        <img :src="getPlayerImgSrc()" class="player-character">
+        <img :src="getPlayerImgSrc" class="player-character">
         <div player-names>
           <h1>{{ player.name }}</h1>
           <h2>{{ player.character }}</h2>
@@ -13,7 +13,7 @@
 
       <div class="city-summary">
         <div>
-          <img :src="getCityImgSrc()" class="city-image" ref="playerCityImage">
+          <img :src="getCityImgSrc" class="city-image" ref="playerCityImage">
           <p class="city-name">{{ player.city.name }}</p>
         </div>
         <div class="city-stacks">
@@ -25,7 +25,7 @@
           </div>
           <p>Buildings:</p>
           <div class="building-stack">
-            <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc()">
+            <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc">
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
 
     <div class="columns">
       <div class="column" v-for="card in player.cards" :key="card.uuid">
-        <city-card :card="card"/>
+        <city-card :card="card" :usable="cardUsable(card)" :used="cardUsed(card)" @click="UseCard(card)"/>
       </div>
     </div>
 
@@ -50,16 +50,15 @@ export default {
   props: {
     player: Object
   },
+  data() {
+    return {
+      usedCards: [],
+    };
+  },
   computed: {
     ...mapGetters({
       pollutions: 'config/getPollutions'
     }),
-  },
-  mounted() {
-    this.$refs.playerCityImage.onerror = this.handleImgError;
-    console.log(this.pollutions);
-  },
-  methods: {
     getPlayerImgSrc() {
       return `characters/${this.player.character}.jpg`;
     },
@@ -68,6 +67,37 @@ export default {
     },
     getCityBuildingSrc() {
       return `buildings/${this.player.city.pollution}-icon.jpg`;
+    },
+  },
+  mounted() {
+    this.$refs.playerCityImage.onerror = this.handleImgError;
+    console.log(this.pollutions);
+  },
+  methods: {
+    cardUsable(card) {
+      if (this.usedCards.length == 0) {
+        let locationMatch = card.city.uuid == this.player.city.uuid;
+        let availableTypesCount = this.player.cards.filter((current) => {return card.uuid != current.uuid && card.city.pollution == current.city.pollution}).length > 3;
+        return locationMatch && availableTypesCount;
+      }
+      else {
+        let unUsed = this.usedCards.filter((current) => {return card.uuid == current.uuid}).length == 0;
+        let comboMatch = this.usedCards.filter((current) => {return card.pollution == current.pollution}).length > 0;
+        return unUsed && comboMatch;
+      };
+    },
+    cardUsed(card) {
+      let used = this.usedCards.filter((current) => {return card.uuid == current.uuid}).length > 0;
+      return used;
+    },
+    UseCard(card) {
+      if (!this.cardUsable(card)) {
+        return
+      }
+      this.usedCards.push(card);
+      if (this.usedCards.length == 3) {
+        this.$emit('building', usedCards);
+      }
     },
     pollutionStack(type) {
       return [...Array(this.player.city.pollutions[type]).keys()];
