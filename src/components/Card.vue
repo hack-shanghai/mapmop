@@ -1,9 +1,9 @@
 <template>
-  <div class="card">
-    <img class="header-img" :src="header_image"/>
-    <img class="tag-img" :src="tag_image"/>
+  <div class="card" :style="{'background-color': color}">
+    <img class="header-img" :src="header_image" ref="mainImage"/>
+    <img v-if="tag_image" class="tag-img" :src="tag_image"/>
     <h1>{{ title }}</h1>
-    <p>{{ description }}</p>
+    <img v-if="footer_image" class="footer-img" :src="footer_image"/>
   </div>
 </template>
 
@@ -13,9 +13,23 @@ export default {
   name: 'Card',
   props: {
     header_image: String,
+    default_image: String,
     tag_image: String,
+    footer_image:String,
     title: String,
     description: String,
+    color: String
+  },
+  mounted() {
+    this.$refs.mainImage.onerror = this.handleImgError;
+  },
+  methods: {
+    handleImgError(evt) {
+      let image = this.$refs.mainImage;
+      if (image.src != this.default_image){
+        image.src = this.default_image;
+      }
+    }
   }
 }
 </script>
@@ -23,16 +37,19 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .small.card {
-  width: 200px;
-  height: 300px;
+  width: 100px;
+  height: 160px;
   border-radius: 12px;
 }
 .card {
-  width: 400px;
-  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 180px;
+  height: 266px;
   border-radius: 25px;
   box-shadow: 10px 5px 5px #777777;
-  margin: 10px;
+  margin: 6px;
 }
 .header-img {
   border-top-left-radius: 25px;
@@ -46,36 +63,38 @@ export default {
 }
 .tag-img {
   position: absolute;
-  width: 100px;
-  top: 100px;
-  left: 300px;
+  width: 40px;
+  top: 46px;
+  left: 136px;
 }
 .small .tag-img {
   position: absolute;
-  width: 50px;
-  top: 50px;
-  left: 150px;
+  width: 20px;
+  top: 26px;
+  left: 76px;
+}
+.footer-img {
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  max-width: 100%;
+}
+.small .footer-img {
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  max-width: 100%;
 }
 h1 {
   margin: 40px 0 0;
   text-align: center;
   font-size: 1.3em;
   font-weight: bold;
-  margin-bottom: 30px;
+  margin: 30px;
 }
 .small h1 {
   margin: 20px 0 0;
   text-align: center;
   font-size: 1em;
   font-weight: bold;
-  margin-bottom: 20px;
-}
-p {
-  padding: 10px;
-  font-size: 1.3em;
-}
-.small p{
-  padding: 6px;
-  font-size: 0.9em;
+  margin: 0px;
 }
 </style>
