@@ -7,6 +7,7 @@ Vue.config.productionTip = false
 
 require('bulma/css/bulma.min.css');
 
+
 /**
  * Set MomentJS.
  */

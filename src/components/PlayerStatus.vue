@@ -1,9 +1,9 @@
 <template>
-  <div class="player-insight">
+  <div class="player-status">
     <h1>{{ player.name }}</h1>
     <div class="columns">
       <div class="column" v-for="card in player.cards" :key="card.uuid">
-        <city-card :card="card" :small="true"/>
+        <city-card :card="card"/>
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'PlayerInsight',
+  name: 'PlayerStatus',
   props: {
     player: Object
   },

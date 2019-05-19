@@ -18,7 +18,7 @@ npm run serve
 
 #### Docker:
 ```
-docker run --rm --name mapmop -v ~/Projects//mapmop:/app -p 8080:8080 mapmop npm install && npm run serve 
+docker run --rm --name mapmop -v ~/Projects/mapmop:/app -p 8080:8080 mapmop /bin/sh -c "npm install && npm run serve"
 ```
 
 You game is now available in your browser at http://localhost:8080
