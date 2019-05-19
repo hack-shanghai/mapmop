@@ -12,7 +12,7 @@
       :usable="usable"
       @click="$emit('click', card)"
     />
-    <img class="throw-icon" src="delete.svg"/>
+    <img class="throw-icon" src="delete.svg" @click="$emit('click', card)"/>
   </div>
 </template>
 

@@ -13,7 +13,9 @@
       ></vl-view>
 
       <!-- interactions -->
-      <vl-interaction-select @select="selectMap"></vl-interaction-select>
+      <vl-interaction-select @select="selectMap">
+        <template/>
+      </vl-interaction-select>
       <!--// interactions -->
 
       <vl-feature v-for="(ctd, index) in cityToDisplay" :key="'city_' + index" :city="ctd.city">
@@ -61,7 +63,7 @@
             src="../assets/avatar.png"
             :color="player.colorPlayer"
             :anchor="[-10, 0.5 + indexPlayer ]"
-            :scale="0.7"
+            :scale="0.9"
             anchorXUnits="pixels"
           ></vl-style-icon>
         </vl-style-box>
