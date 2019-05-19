@@ -89,6 +89,7 @@ h1 {
   font-size: 1.3em;
   font-weight: bold;
   margin: 30px;
+  color: #ffffff
 }
 .small h1 {
   margin: 20px 0 0;
