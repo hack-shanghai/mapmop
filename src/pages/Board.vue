@@ -1,15 +1,10 @@
 <template>
   <div>
-    <div class="container">
-      <div class="level">
-        <div class="level-item">
-          <p class="title">Map Mop</p>
-        </div>
-        <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">Actions left</p>
-            <p class="title">{{ game.action_left }}</p>
-          </div>
+    <div class="top-indicator">
+      <div class="has-text-centered">
+        <div>
+          <p class="heading">Actions left</p>
+          <p class="title">{{ game.action_left }}</p>
         </div>
       </div>
     </div>
@@ -35,6 +30,18 @@
     </div>
   </div>
 </template>
+
+<style>
+.top-indicator {
+  position:fixed;
+  top: 0;
+  left: 20%;
+  background-color: #212121;
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+}
+</style>
 
 <script>
 import { mapGetters } from 'vuex';

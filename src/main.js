@@ -5,8 +5,7 @@ import router from './router';
 
 Vue.config.productionTip = false
 
-require('bulma/css/bulma.min.css');
-
+require('./styles.sass');
 
 /**
  * Set MomentJS.
