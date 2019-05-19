@@ -21,7 +21,7 @@
           </div>
         </div>
         <div class="column">
-          <div v-for="(player, index) in players" :key="player.uuid">
+          <div v-for="(player) in players" :key="player.uuid">
             <div v-if="player.uuid != currentPlayer.uuid">
             {{ player }}
             </div>
