@@ -48,11 +48,11 @@ const Board = {
     getTransitions(state) {
       return state.transitions;
     },
-    getCity(state, city_uuid) {
+    getCity(state) { return (city_uuid) => {
       if(!city_uuid)
         return null;
       return state.cities[city_uuid];
-    },
+    }},
   },
   actions: {
     init({ commit }) {
