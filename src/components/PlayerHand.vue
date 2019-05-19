@@ -9,8 +9,10 @@
             <h2>{{ player.character }}</h2>
           </div>
         </div>
-        <img :src="getCityImgSrc()" class="city-image" ref="playerCityImage">
-        <p class="city-name">{{ player.city.name }}</p>
+        <div>
+          <img :src="getCityImgSrc()" class="city-image" ref="playerCityImage">
+          <p class="city-name">{{ player.city.name }}</p>
+        </div>
         <div v-for="(pollution_data, pollution) in pollutions">
           <img class="pollution-stack" v-for="stacks in pollutionStack(pollution)" :src="pollutionImgSrc(pollution)" style="background-color: black;">
         </div>
@@ -73,6 +75,7 @@ export default {
 <style scoped>
 .player-panel {
   width: 300px;
+  wmax-idth: 300px;
 }
 
 .player-header {
@@ -98,14 +101,28 @@ export default {
 }
 
 .city-name {
-  margin: 40px 0 0;
+  width: 288px;
+  position: absolute;
+  margin-top: -100px;
   text-align: center;
-  font-size: 1.3em;
+  font-size: 1.8em;
   font-weight: bold;
-  margin: 30px;
+  color: #ffffff;
+  text-shadow: 2px 2px 2px black;
+  background-color: rgb(0,0,0,0.5)
 }
 
 .pollution-stack {
   width: 50px;
+}
+
+h1 {
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 1.1em;
+  font-weight: bold;
 }
 </style>

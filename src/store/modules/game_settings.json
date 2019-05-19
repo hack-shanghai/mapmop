@@ -11,7 +11,7 @@
     "disasters_per_deck": 3
   },
   "characters": {
-    "ecolo": {
+    "ecologist": {
       "name": "Ecolo",
       "description": "",
       "ability": "The city pollutions do not grow while the ecologist is there.",
