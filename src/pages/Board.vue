@@ -26,7 +26,7 @@
     </div>
 
     <div class="container-fluid">
-      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card" @throw="cardSelectedToDelete"/>
+      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card" @throw="cardSelectedToDelete" @building="buildResearchCenter"/>
     </div>
   </div>
 </template>
@@ -192,7 +192,7 @@ export default {
     },
     buildResearchCenter(cards) {
       cards.forEach((card) => this.$store.dispatch('players/removeCard', card));
-      this.$store.dispatch('boards/buildResearchCenter', this.currentPlayer.city);
+      this.$store.dispatch('board/buildResearchCenter', { city: this.currentPlayer.city, pollution: null });
     },
   },
 };

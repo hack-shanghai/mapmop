@@ -117,6 +117,9 @@ const Board = {
         resolve();
       });
     },
+    buildResearchCenter({ commit }, { city, pollution }) {
+      commit('BUILD_RESEARCH_CENTER', { city, pollution });
+    },
   },
   mutations: {
     ADD_CITY(state, {city_key, city}) {
@@ -125,14 +128,17 @@ const Board = {
     ADD_TRANSITION(state, transition) {
       state.transitions.push(transition);
     },
-    INCREASE_POLLUTION(state, {city, pollution}) {
+    INCREASE_POLLUTION(state, { city, pollution }) {
       state.cities[city.uuid].pollutions[pollution]++;
     },
-    DECREASE_POLLUTION(state, {city, pollution}) {
+    DECREASE_POLLUTION(state, { city, pollution }) {
       state.cities[city.uuid].pollutions[pollution]--;
     },
     SET_INIT(state, initialized) {
       state.initialized = initialized;
+    },
+    BUILD_RESEARCH_CENTER(state, { city, pollution }) {
+      state.cities[city.uuid].buildings.push('research');
     },
   }
 };
