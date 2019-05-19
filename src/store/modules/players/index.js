@@ -55,7 +55,6 @@ const Players = {
       commit('SET_CURRENT_PLAYER', player);
     },
     init(context) {
-      console.log(context);
       return new Promise((resolve, reject) => {
         /**
          * Init the first cards in the deck.
@@ -91,6 +90,28 @@ const Players = {
         resolve();
       });
     },
+    moveToCity({ commit, state, rootGetters }, city) {
+
+      let player = state.currentPlayer;
+
+      return new Promise((resolve, reject) => {
+        if(!rootGetters['board/getTransitions'].some((transition) => {
+          if(player.city.uuid == transition.city1 && city.uuid == transition.city2) {
+            return true;
+          }
+          if(player.city.uuid == transition.city2 && city.uuid == transition.city1) {
+            return true;
+          }
+          return false;
+        })) {
+          reject();
+          return;
+        }
+
+        commit('CHANGE_CITY', city);
+        resolve();
+      });
+    }
   },
   mutations: {
     ADD_PLAYER(state, player) {
@@ -107,6 +128,9 @@ const Players = {
     },
     SET_CURRENT_PLAYER(state, player) {
       state.currentPlayer = state.players.indexOf(player);
+    },
+    CHANGE_CITY(state, city) {
+      state.currentPlayer.city = city;
     },
   },
 };

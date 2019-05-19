@@ -1,7 +1,6 @@
-const generate = require('nanoid/generate')
+import Vue from 'vue';
 
-const cities = require('../../../assets/cities.json');
-const connections = require('../../../assets/connections.json');
+const map = require('./cities.json');
 
 const Board = {
   namespaced: true,
@@ -21,19 +20,22 @@ const Board = {
  *       },
  *       buildings: [
  *
+ *       ],
+ *       disasters: [
+ *
  *       ]
  *     }
  *   ],
  *   transitions: [
  *     {
- *       uuid_city_a: '',
- *       uuid_city_b: '',
+ *       city1: '',
+ *       city2: '',
  *     }
  *   ]
  * }
  */
     initialized: false,
-    cities: [],
+    cities: {},
     transitions: [],
   },
   getters: {
@@ -41,7 +43,7 @@ const Board = {
       return state.initialized;
     },
     getCities(state) {
-      return state.cities;
+      return Object.keys(state.cities).map((c) => state.cities[c]);
     },
     getTransitions(state) {
       return state.transitions;
@@ -49,7 +51,7 @@ const Board = {
     getCity(state, city_uuid) {
       if(!city_uuid)
         return null;
-      return state.cities.filter((c) => c.uuid == city_uuid)[0];
+      return state.cities[city_uuid];
     },
   },
   actions: {
@@ -58,11 +60,13 @@ const Board = {
         /**
          * Load the list of cities.
          */
-        cities.forEach((city) => {
+        Object.keys(map.cities).forEach((city_key) => {
+          let city = map.cities[city_key];
+          city.uuid = city_key;
+
           /**
            * Define the property of the city.
            */
-          city.uuid = 'cid' + generate('1234567890', 10);
           city.pollutions = {
             waste: 0,
             weather: 0,
@@ -70,24 +74,39 @@ const Board = {
           };
           city.buildings = [];
 
-          commit('ADD_CITY', city);
+          commit('ADD_CITY', {city_key, city});
         });
 
         /**
          * Generate the transitions.
          */
-        connections.forEach((c) => {
-          commit('ADD_TRANSITION', c);
+        map.transitions.forEach((t) => {
+          commit('ADD_TRANSITION', t);
         });
 
         commit('SET_INIT', true);
         resolve();
       });
     },
+    increasePollution({ commit }, { city, pollution}) {
+      return new Promise((resolve, reject) => {
+        // If pollution is over 3, we dispatch 1 more to the cities linked to it.
+
+        resolve();
+      });
+    },
+    decreasePollution({ commit }, city) {
+      return new Promise((resolve, reject) => {
+
+
+
+        resolve();
+      });
+    },
   },
   mutations: {
-    ADD_CITY(state, city) {
-        state.cities.push(city);
+    ADD_CITY(state, {city_key, city}) {
+        Vue.set(state.cities, city_key, city);
     },
     ADD_TRANSITION(state, transition) {
         state.transitions.push(transition);

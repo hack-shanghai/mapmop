@@ -83,30 +83,33 @@ export default {
         /**
          * If there is no pollution to decrease, we ignore the click.
          */
-        if(city.pollutions.waste == 0 &&
-          city.pollutions.nuclear == 0 &&
-          city.weather == 0) {
+        if(!Object.keys(city.pollutions).some((k) => city.pollutions[k] > 0)) {
           return;
         }
 
-        // TODO: Decreate a pollution.
+        this.$store.dispatch('board/decreasePollution', city)
+        .then(() => {
+          this.decreaseAction();
+        });
 
-        this.decreaseAction();
         return;
       }
 
        /**
         * If the user is in the city close to the one clicked, we move the user.
         */
-        // TODO: Create the move.
-
-        this.decreaseAction();
+        this.$store.dispatch('players/moveToCity', city)
+        .then(() => {
+          this.decreaseAction();
+        }).catch(() => {
+          // TODO: Display message, cannot move there.
+        });
     },
     decreaseAction() {
       this.game.action_left--;
 
       if(this.game.action_left < 1) {
-        // TODO: End the round, and switch to the next player.
+        // TODO: End the turn, and switch to the next player.
       }
     },
   },

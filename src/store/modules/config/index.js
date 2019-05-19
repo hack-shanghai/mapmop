@@ -15,9 +15,6 @@ const Config = {
     getPollutions(state) {
       return state.config.pollutions;
     },
-    getCrisis(state) {
-      return state.config.crisis;
-    },
     getResearchCenter(state) {
       return state.config.research_center;
     }

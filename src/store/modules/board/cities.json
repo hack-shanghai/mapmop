@@ -1,0 +1,114 @@
+{
+	"cities": {
+		"lagos": {
+			"name": "Lagos",
+			"lat": 6.524379,
+			"lon": 3.379206,
+			"disasters": {
+
+			}
+		},
+		"berlin": {
+			"name": "Berlin",
+			"lat": 52.520008,
+			"lon": 13.404954,
+			"disasters": {
+
+			}
+		},
+		"adelaide": {
+			"name": "Adelaide", "lat": -34.928497, "lon": 138.600739,
+			"disasters": {
+
+			}
+		},
+		"ankara": {
+			"name": "Ankara", "lat": 39.933365, "lon": 32.859741,
+			"disasters": {
+
+			}
+		},
+		"asuncion": {
+			"name": "Asunción", "lat": -25.263741, "lon": -57.575928,
+			"disasters": {
+
+			}
+		},
+		"bangkok": {
+			"name": "Bangkok", "lat": 13.756331, "lon": 100.501762,
+			"disasters": {
+
+			}
+		},
+		"barcelona": {
+			"name": "Barcelona", "lat": 41.385063, "lon": 2.173404,
+			"disasters": {
+
+			}
+		},
+		"beijing": {
+			"name": "Beijing", "lat": 39.904202, "lon": 116.407394,
+			"disasters": {
+
+			}
+		},
+		"bogota": {
+			"name": "Bogotá", "lat": 4.710989, "lon": -74.07209,
+			"disasters": {
+
+			}
+		},
+		"bombay": {
+			"name": "Bombay", "lat": 19.075983, "lon": 72.877655,
+			"disasters": {
+
+			}
+		},
+		"johannesburg": {
+			"name": "Johannesburg", "lat": -26.204103, "lon": 28.047304,
+			"disasters": {
+
+			}
+		},
+		"los_angeles": {
+			"name": "Los Angeles", "lat": 34.052235, "lon": -118.243683,
+			"disasters": {
+
+			}
+		},
+		"new_york": {
+			"name": "New York", "lat": 40.712776, "lon": -74.005974,
+			"disasters": {
+
+			}
+		},
+		"tokyo": {
+			"name": "Tokyo", "lat": 35.689487, "lon": 139.691711,
+			"disasters": {
+
+			}
+		}
+	},
+	"transitions": [
+		{ "city1": "los_angeles", "city2": "new_york" },
+		{ "city1": "los_angeles", "city2": "bogota" },
+		{ "city1": "bogota", "city2": "new_york" },
+		{ "city1": "barcelona", "city2": "new_york" },
+		{ "city1": "los_angeles", "city2": "bogota" },
+		{ "city1": "berlin", "city2": "ankara" },
+		{ "city1": "ankara", "city2": "barcelona" },
+		{ "city1": "berlin", "city2": "barcelona" },
+		{ "city1": "asuncion", "city2": "bogota" },
+		{ "city1": "asuncion", "city2": "lagos" },
+		{ "city1": "lagos", "city2": "barcelona" },
+		{ "city1": "lagos", "city2": "johannesburg" },
+		{ "city1": "johannesburg", "city2": "bombay" },
+		{ "city1": "bombay", "city2": "ankara" },
+		{ "city1": "beijing", "city2": "bombay" },
+		{ "city1": "beijing", "city2": "bangkok" },
+		{ "city1": "tokyo", "city2": "adelaide" },
+		{ "city1": "adelaide", "city2": "bangkok" },
+		{ "city1": "tokyo", "city2": "beijing" },
+		{ "city1": "bangkok", "city2": "bombay" }
+	]
+}
