@@ -26,7 +26,7 @@
     </div>
 
     <div class="container-fluid">
-      <player-hand v-if="currentPlayer" :player="currentPlayer"/>
+      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card"/>
     </div>
   </div>
 </template>

@@ -19,13 +19,13 @@
         <div class="city-stacks">
           <p>Pollutions:</p>
           <div class="pollution-stack">
-            <div v-for="(pollution_data, pollution) in pollutions">
-              <img class="pollution-stack" v-for="stacks in pollutionStack(pollution)" :src="pollutionImgSrc(pollution)" style="background-color: black;">
+            <div v-for="(pollution_data, pollution) in pollutions" :key="pollution">
+              <img class="pollution-stack" v-for="stacks in pollutionStack(pollution)" :src="pollutionImgSrc(pollution)" style="background-color: black;" :key="stacks">
             </div>
           </div>
           <p>Buildings:</p>
           <div class="building-stack">
-            <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc">
+            <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc(building)" :key="building">
           </div>
         </div>
       </div>
@@ -33,11 +33,11 @@
 
     <div class="columns">
       <div class="column" v-for="card in player.cards" :key="card.uuid">
-        <city-card :card="card" :usable="cardUsable(card)" :used="cardUsed(card)" @click="UseCard(card)"/>
+        <city-card :card="card" :usable="cardUsable(card)" :throwable="cardThrowable(card)" :used="cardUsed(card)" @click="useOrThrow(card)"/>
       </div>
     </div>
 
-    <deck style="width: 30%"/>
+    <deck style="width: 30%" :pendingCard="pendingCard" @click="throwCard"/>
 
   </div>
 </template>
@@ -48,7 +48,8 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'PlayerHand',
   props: {
-    player: Object
+    player: Object,
+    pendingCard: Object
   },
   data() {
     return {
@@ -65,13 +66,9 @@ export default {
     getCityImgSrc() {
       return `cities/${this.player.city.name.toLowerCase().replace(' ', '_')}.jpg`;
     },
-    getCityBuildingSrc() {
-      return `buildings/${this.player.city.pollution}-icon.jpg`;
-    },
   },
   mounted() {
     this.$refs.playerCityImage.onerror = this.handleImgError;
-    console.log(this.pollutions);
   },
   methods: {
     cardUsable(card) {
@@ -84,11 +81,22 @@ export default {
         let unUsed = this.usedCards.filter((current) => {return card.uuid == current.uuid}).length == 0;
         let comboMatch = this.usedCards.filter((current) => {return card.pollution == current.pollution}).length > 0;
         return unUsed && comboMatch;
-      };
+      }
     },
     cardUsed(card) {
       let used = this.usedCards.filter((current) => {return card.uuid == current.uuid}).length > 0;
       return used;
+    },
+    cardThrowable() {
+      return this.pendingCard !== null;
+    },
+    useOrThrow(card) {
+      if(this.pendingCard) {
+        this.throwCard(card);
+      }
+      else {
+        this.useCard(card);
+      }
     },
     UseCard(card) {
       if (!this.cardUsable(card)) {
@@ -96,7 +104,12 @@ export default {
       }
       this.usedCards.push(card);
       if (this.usedCards.length == 3) {
-        this.$emit('building', usedCards);
+        this.$emit('building', this.usedCards);
+      }
+    },
+    throwCard(card) {
+      if(this.pendingCard) {
+        this.$emit('throw', card);
       }
     },
     pollutionStack(type) {
@@ -106,7 +119,16 @@ export default {
       let name = `pollutions/${type.toLowerCase()}.png`;
       return name;
     },
-    handleImgError(evt) {
+    getCityBuildingSrc(type) {
+      if (type  == 'research') {
+        return `buildings/${this.player.city.pollution}-icon.jpg`;
+      }
+      else {
+        console.log(`Unknown building ${type}`);
+      }
+      return ''
+    },
+    handleImgError() {
       let image = this.$refs.playerCityImage;
       if (image.src != "cities/default.jpg"){
         image.src = "cities/default.jpg";

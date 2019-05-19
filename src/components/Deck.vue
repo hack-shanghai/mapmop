@@ -1,6 +1,7 @@
 <template>
   <div class="card">
-    <img :src="header_image"/>
+    <img v-if="!pendingCard" :src="header_image"/>
+    <city-card v-if="pendingCard" :card="pendingCard" :throwable="true" @click="$emit('click', pendingCard)"/>
   </div>
 </template>
 
@@ -10,6 +11,7 @@ export default {
   name: 'Deck',
   props: {
     header_image: Object,
+    pendingCard: Object
   },
   methods: {}
 }
@@ -21,7 +23,7 @@ export default {
   max-width: 180px;
   height: 270px;
   border-radius: 25px;
-  box-shadow: 10px 5px 5px #777777;
+  box-shadow: 10px 10px 5px #000000;
   margin: 6px;
   background: repeating-linear-gradient(
     45deg,

@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <card
+  <div :class="{'throwable': throwable}">
+    <card class="card"
       :class="{'small': small, 'usable': usable, 'used': used}"
       :header_image="citySrc"
       :default_image="defaultCitySrc"
@@ -12,6 +12,7 @@
       :usable="usable"
       @click="$emit('click', card)"
     />
+    <img class="throw-icon" src="delete.svg"/>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
     card: Object,
     small: Boolean,
     usable: Boolean,
+    throwable: Boolean,
     used: Boolean
   },
   data() {
@@ -56,9 +58,35 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.throwable {
+  position: relative;
+}
+
 .card.usable {
   cursor: pointer;
   transform: scale(1.1);
+}
+
+.throwable:hover>.card {
+  cursor: pointer;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+}
+
+.throw-icon{
+  position: absolute;
+  margin-top: -185px;
+  margin-left: 55px;
+  width: 80px;
+  display: none;
+}
+
+.throwable:hover>.throw-icon{
+  display: block;
+}
+
+.throwable:hover>.throw-icon path {
+    fill: red;
 }
 
 .card.used {

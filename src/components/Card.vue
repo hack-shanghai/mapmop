@@ -24,7 +24,7 @@ export default {
     this.$refs.mainImage.onerror = this.handleImgError;
   },
   methods: {
-    handleImgError(evt) {
+    handleImgError() {
       let image = this.$refs.mainImage;
       if (image.src != this.default_image){
         image.src = this.default_image;
@@ -48,7 +48,7 @@ export default {
   width: 180px;
   height: 266px;
   border-radius: 25px;
-  box-shadow: 10px 5px 5px #777777;
+  box-shadow: 10px 10px 5px #000000;
   margin: 6px;
 }
 .header-img {
