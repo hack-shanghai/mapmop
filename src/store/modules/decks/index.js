@@ -1,4 +1,4 @@
-const generate = require('nanoid/generate')
+const generate = require("nanoid/generate");
 
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
@@ -8,37 +8,35 @@ function shuffle(a) {
   return a;
 }
 
-
 const Decks = {
   namespaced: true,
   state: {
-/**
- * card: {
- *   uuid: 'UUID of the card',
- *   name: 'Name of the card',
- *   type: 'disaster|research',
- *   pollution: 'Type of pollution (nuclear, weather, waste)',
- *   description: 'Description of the card',
- *   image: 'URL of the image',
- *   city: 'UUID of the city',
- * }
- */
-    cards: [],
+    /**
+     * card: {
+     *   uuid: 'UUID of the card',
+     *   name: 'Name of the card',
+     *   type: 'disaster|research',
+     *   pollution: 'Type of pollution (nuclear, weather, waste)',
+     *   description: 'Description of the card',
+     *   image: 'URL of the image',
+     *   city: 'UUID of the city',
+     * }
+     */
+    cards: []
   },
   getters: {
     getCards(state) {
       return state.cards;
     },
     getResearchCards(state) {
-      return state.cards.filter(c => c.type == 'research');
-    },
+      return state.cards.filter(c => c.type == "research");
+    }
   },
   actions: {
     init(context) {
-      return new Promise((resolve, reject) => {
-
-        let pollutions = context.rootGetters['config/getPollutions'];
-        let cities = context.rootGetters['board/getCities'];
+      return new Promise(resolve => {
+        let pollutions = context.rootGetters["config/getPollutions"];
+        let cities = context.rootGetters["board/getCities"];
 
         /**
          * Init the cards according to the city.
@@ -47,23 +45,23 @@ const Decks = {
 
         let pollutionsArray = Object.keys(pollutions);
         let count = 0;
-        cities.forEach((city) => {
-
+        cities.forEach(city => {
           let card = {
-            uuid: 'cardid' + generate('1234567890', 10),
+            uuid: "cardid" + generate("1234567890", 10),
             name: city.name,
-            type: 'research',
+
+            type: "research",
             pollution: pollutionsArray[count % pollutionsArray.length],
-            description: '', // TODO: Define from city
-            image: '', // TODO: Define from city
-            city: city,
+            description: "", // TODO: Define from city
+            image: "", // TODO: Define from city
+            city: city
           };
 
-          context.commit('ADD_CARD', card)
+          context.commit("ADD_CARD", card);
           count++;
         });
 
-        context.commit('SHUFFLE_CARD');
+        context.commit("SHUFFLE_CARD");
 
         resolve();
       });
@@ -72,8 +70,8 @@ const Decks = {
       return state.cards.pop();
     },
     removeCard({ commit }, card) {
-      commit('REMOVE_CARD', card);
-    },
+      commit("REMOVE_CARD", card);
+    }
   },
   mutations: {
     ADD_CARD(state, card) {
@@ -84,8 +82,8 @@ const Decks = {
     },
     SHUFFLE_CARD(state) {
       shuffle(state.cards);
-    },
-  },
+    }
+  }
 };
 
 export default Decks;

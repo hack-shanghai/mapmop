@@ -56,7 +56,7 @@ const Board = {
   },
   actions: {
     init({ commit }) {
-      return new Promise((resolve, reject) => {
+      return new Promise(resolve => {
         /**
          * Load the list of cities.
          */
@@ -70,7 +70,7 @@ const Board = {
           city.pollutions = {
             waste: 0,
             weather: 0,
-            nuclear: 0,
+            nuclear: 0
           };
           city.buildings = [];
 
@@ -84,18 +84,22 @@ const Board = {
           commit('ADD_TRANSITION', t);
         });
 
-        commit('SET_INIT', true);
+        commit("SET_INIT", true);
         resolve();
       });
     },
+    // eslint-disable-next-line
     increasePollution({ commit }, { city, pollution}) {
+      // eslint-disable-next-line
       return new Promise((resolve, reject) => {
         // If pollution is over 3, we dispatch 1 more to the cities linked to it.
 
         resolve();
       });
     },
+    // eslint-disable-next-line
     decreasePollution({ commit }, city) {
+      // eslint-disable-next-line
       return new Promise((resolve, reject) => {
 
 
@@ -109,12 +113,12 @@ const Board = {
         Vue.set(state.cities, city_key, city);
     },
     ADD_TRANSITION(state, transition) {
-        state.transitions.push(transition);
+      state.transitions.push(transition);
     },
     SET_INIT(state, initialized) {
       state.initialized = initialized;
-    },
-  },
+    }
+  }
 };
 
 export default Board;
