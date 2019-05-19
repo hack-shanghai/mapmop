@@ -8,7 +8,9 @@
 <script>
 export default {
   name: 'Deck',
-  props: {},
+  props: {
+    header_image: Object,
+  },
   methods: {}
 }
 </script>

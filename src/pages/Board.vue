@@ -59,7 +59,7 @@ export default {
   data() {
     return {
       game: {
-        action_left: 3,
+        action_left: 0,
         card: null,
         disaster: null,
       },
@@ -67,6 +67,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      settings: 'config/getSettings',
       players: 'players/getPlayers',
       cities: 'board/getCities',
       connections: 'board/getTransitions',
@@ -83,7 +84,7 @@ export default {
     }
   },
   mounted() {
-
+    this.game.action_left = this.settings.action_per_turn;
   },
   methods: {
     onMapClick(city) {
@@ -172,7 +173,7 @@ export default {
       this.$store.dispatch('players/nextPlayer');
 
       // Reset turn parameter
-      this.game.action_left = 3;
+      this.game.action_left = this.settings.action_per_turn;
       this.game.card = null;
       this.game.disaster = null;
     },

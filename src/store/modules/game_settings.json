@@ -3,6 +3,7 @@
     "player_max_deck_size": 5,
     "players_city_ratio": 10,
     "city_link_ratio": 2,
+    "action_per_turn": 3,
     "cards_per_turn": 2,
     "turns": 10,
     "new_stack_per_turn": 3,
