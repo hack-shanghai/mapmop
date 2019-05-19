@@ -60,7 +60,7 @@
           <vl-style-icon
             src="../assets/avatar.png"
             :color="player.colorPlayer"
-            :anchor="[-10, 1.0 ]"
+            :anchor="[-10, 0.5 + indexPlayer ]"
             :scale="0.7"
             anchorXUnits="pixels"
           ></vl-style-icon>
