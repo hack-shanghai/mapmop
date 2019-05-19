@@ -60,6 +60,8 @@ export default {
     return {
       game: {
         action_left: 3,
+        card: null,
+        disaster: null,
       },
     };
   },
@@ -69,7 +71,9 @@ export default {
       cities: 'board/getCities',
       connections: 'board/getTransitions',
       init: 'board/isInitialized',
-      currentPlayer: 'players/getCurrentPlayer'
+      currentPlayer: 'players/getCurrentPlayer',
+      cards: 'decks/getCards',
+      cardCount: 'decks/getCount',
     })
   },
   beforeMount() {
@@ -122,7 +126,55 @@ export default {
 
       if(this.game.action_left < 1) {
         // TODO: End the round, and switch to the next player.
+
+        // Make the next card of the deck visible.
+        if(cards.length == 0) {
+          alert('GAME OVER!');
+          return;
+        }
+        this.game.card = cards[0];
+
+        // If it's a research card, we let the user choose which card he want to loose.
+        if (this.game.card.type == 'research') {
+          return;
+        }
+
+        // If it's a disaster card, we display a modal with the disaster.
+        this.game.disaster = this.game.card.disaster;
       }
+    },
+    cardSelectedToDelete(card) {
+      this.$store.dispatch('decks/removeCard', this.game.card);
+      let newCard = this.game.card;
+      this.game.card = null;
+      if(this.game.card.uuid == card.uuid) {
+        nextPlayer();
+        return;
+      }
+
+      // Remove the old card from the player deck.
+      this.$store.dispatch('players/removeCard', card);
+
+      // Add the card in the players deck.
+      this.$store.dispatch('players/addCard', newCard);
+
+      nextPlayer();
+    },
+    applyDisaster() {
+      this.$store.dispatch('decks/removeCard', this.game.card);
+      nextPlayer();
+    },
+    nextPlayer() {
+      // Apply increase of pollution in 2 cities.
+      // TODO
+
+      // Switch player.
+      this.$store.dispatch('players/nextPlayer');
+
+      // Reset turn parameter
+      this.game.action_left = 3;
+      this.game.card = null;
+      this.game.disaster = null;
     },
   },
 };

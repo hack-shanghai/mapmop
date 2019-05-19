@@ -29,7 +29,10 @@ const Decks = {
     },
     getResearchCards(state) {
       return state.cards.filter(c => c.type == "research");
-    }
+    },
+    getCount(state) {
+      return state.cards.length;
+    },
   },
   actions: {
     init(context) {

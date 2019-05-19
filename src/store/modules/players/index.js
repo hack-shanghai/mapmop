@@ -17,8 +17,8 @@ const Players = {
      *   name: 'Public name of the user',
      *   character: 'UUID of the character',
      *   cards: [
-     *      'UUID of the card',
-     *      'UUID of the card',
+     *      {}
+     *      {}
      *   ],
      *   city: 'UUID of the city',
      * }
@@ -111,7 +111,16 @@ const Players = {
         commit('CHANGE_CITY', city);
         resolve();
       });
-    }
+    },
+    addCard({ commit }, card) {
+      commit('ADD_CARD', card);
+    },
+    removeCard({ commit }, card) {
+      commit('REMOVE_CARD', card);
+    },
+    nextPlayer({ commit }) {
+      commit('NEXT_PLAYER');
+    },
   },
   mutations: {
     ADD_PLAYER(state, player) {
@@ -131,6 +140,16 @@ const Players = {
     },
     CHANGE_CITY(state, city) {
       state.players[state.currentPlayer].city = city;
+    },
+    ADD_CARD(state, card) {
+      state.players[state.currentPlayer].cards.push(card);
+    },
+    REMOVE_CARD(state, card) {
+      let newCards = state.players[state.currentPlayer].cards.filter((c) => c.uuid != card.uuid);
+      state.players[state.currentPlayer].cards = newCards;
+    },
+    NEXT_PLAYER(state) {
+      state.currentPlayer = (state.currentPlayer + 1) % state.players;
     },
   },
 };
