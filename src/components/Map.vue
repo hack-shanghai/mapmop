@@ -137,7 +137,7 @@ export default {
     selectMap({ feature }) {
       const city = feature.vm[0].$attrs.city;
       if (city) {
-        this.$emit("onClick", city);
+        this.$emit("click", city);
       }
     }
   }

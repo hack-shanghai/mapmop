@@ -48,11 +48,11 @@ const Board = {
     getTransitions(state) {
       return state.transitions;
     },
-    getCity(state, city_uuid) {
+    getCity(state) { return (city_uuid) => {
       if(!city_uuid)
         return null;
       return state.cities[city_uuid];
-    },
+    }},
   },
   actions: {
     init({ commit }) {
@@ -67,7 +67,7 @@ const Board = {
           /**
            * Define the property of the city.
            */
-          city.pollutions = {
+          city.pollutions = { // FIXME: Make this init dynamic.
             waste: 0,
             weather: 0,
             nuclear: 0
@@ -89,21 +89,32 @@ const Board = {
       });
     },
     // eslint-disable-next-line
-    increasePollution({ commit }, { city, pollution}) {
+    increasePollution({ commit, dispatch }, { city, pollution }) {
       // eslint-disable-next-line
       return new Promise((resolve, reject) => {
         // If pollution is over 3, we dispatch 1 more to the cities linked to it.
 
+        let total = 0;
+        Object.keys(city.pollutions).forEach((k) => total += city.pollutions[k]);
+
+        if(total == 3) {
+          // Explode to other cities linked.
+
+          // TODO
+
+
+          resolve();
+          return;
+        }
+
+        commit('INCREASE_POLLUTION', { city, pollution });
         resolve();
       });
     },
-    // eslint-disable-next-line
     decreasePollution({ commit }, city) {
-      // eslint-disable-next-line
-      return new Promise((resolve, reject) => {
-
-
-
+      return new Promise((resolve) => {
+        let pollution = Object.keys(city.pollutions).filter((k) => city.pollutions[k] > 0)[0];
+        commit('DECREASE_POLLUTION', {city, pollution})
         resolve();
       });
     },
@@ -114,6 +125,12 @@ const Board = {
     },
     ADD_TRANSITION(state, transition) {
       state.transitions.push(transition);
+    },
+    INCREASE_POLLUTION(state, {city, pollution}) {
+      state.cities[city.uuid].pollutions[pollution]++;
+    },
+    DECREASE_POLLUTION(state, {city, pollution}) {
+      state.cities[city.uuid].pollutions[pollution]--;
     },
     SET_INIT(state, initialized) {
       state.initialized = initialized;

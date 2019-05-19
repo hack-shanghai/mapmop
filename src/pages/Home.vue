@@ -70,7 +70,7 @@ export default {
   computed: {
     ...mapGetters({
       players: 'players/getPlayers',
-    })
+    }),
   },
   mounted() {
 
