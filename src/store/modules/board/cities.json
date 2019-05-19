@@ -1,5 +1,453 @@
 {
 	"cities": {
+		"denpasar": {
+			"name": "denpasar",
+			"lat": -8.621757,
+			"lon": 115.246582,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"sydney": {
+			"name": "Sydney",
+			"lat": -33.815666,
+			"lon": 151.237793,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"kabul": {
+			"name": "Kabul",
+			"lat": 34.544742,
+			"lon": 69.164429,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"singapore": {
+			"name": "Singapore",
+			"lat": 1.414346,
+			"lon": 103.826294,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"hanoi": {
+			"name": "Hanoi",
+			"lat": 21.031315,
+			"lon": 105.856705,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"shanghai": {
+			"name": "Shanghai",
+			"lat": 31.165810,
+			"lon": 121.420898,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"moscow": {
+			"name": "Moscow",
+			"lat": 55.736389,
+			"lon": 37.633667,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"kiyv": {
+			"name": "Kiyv",
+			"lat": 50.429518,
+			"lon": 30.498047,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"budapest": {
+			"name": "Budapest",
+			"lat": 47.442950,
+			"lon": 19.028320,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"dubai": {
+			"name": "Dubai",
+			"lat": 25.344026,
+			"lon": 55.415039,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"istanbul": {
+			"name": "Istanbul",
+			"lat": 41.013066,
+			"lon": 28.981934,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"roma": {
+			"name": "Roma",
+			"lat": 41.902277,
+			"lon": 12.480469,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"helsinki": {
+			"name": "Helsinki",
+			"lat": 60.163376,
+			"lon": 24.960938,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"dublin": {
+			"name": "Dublin",
+			"lat": 53.347272,
+			"lon": -6.278687,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"paris": {
+			"name": "Paris",
+			"lat": 48.846643,
+			"lon": 2.345581,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
+		"marrakesh": {
+			"name": "Marrakesh",
+			"lat": 31.640229,
+			"lon": -7.989464,
+			"disasters": {
+				"nuclear": [
+				    {
+						"name": "Nuclear Explosion",
+						"description": "A big nuclear explosion. I told ya this shit was dangerous.",
+						"image": ""
+					}
+				],
+				"weather": [
+					{
+						"name": "Pollution cloud",
+						"description": "Fucking neighbors, we need to wear gaz-masks now.",
+						"image": ""
+					}
+				],
+				"waste": [
+					{
+						"name": "Waste Outbreak",
+						"description": "Fucking neighbors, we need to wear gaz-masks now",
+						"image": ""
+					}
+				]
+			}
+		},
 		"lagos": {
 			"name": "Lagos",
 			"lat": 6.524379,
@@ -375,20 +823,39 @@
 		{ "city1": "bogota", "city2": "new_york" },
 		{ "city1": "barcelona", "city2": "new_york" },
 		{ "city1": "los_angeles", "city2": "bogota" },
-		{ "city1": "berlin", "city2": "ankara" },
-		{ "city1": "ankara", "city2": "barcelona" },
-		{ "city1": "berlin", "city2": "barcelona" },
+		{ "city1": "berlin", "city2": "budapest" },
+		{ "city1": "istanbul", "city2": "budapest" },
+		{ "city1": "kiyv", "city2": "budapest" },
+		{ "city1": "kiyv", "city2": "moscow" },
+		{ "city1": "kiyv", "city2": "helsinki" },
+		{ "city1": "berlin", "city2": "helsinki" },
+		{ "city1": "barcelona", "city2": "roma" },
+		{ "city1": "istanbul", "city2": "roma" },
+		{ "city1": "istanbul", "city2": "ankara" },
+		{ "city1": "ankara", "city2": "dubai" },
+		{ "city1": "berlin", "city2": "paris" },
 		{ "city1": "asuncion", "city2": "bogota" },
 		{ "city1": "asuncion", "city2": "lagos" },
-		{ "city1": "lagos", "city2": "barcelona" },
+		{ "city1": "barcelona", "city2": "marrakesh" },
+		{ "city1": "lagos", "city2": "marrakesh" },
 		{ "city1": "lagos", "city2": "johannesburg" },
 		{ "city1": "johannesburg", "city2": "bombay" },
-		{ "city1": "bombay", "city2": "ankara" },
+		{ "city1": "bombay", "city2": "dubai" },
+		{ "city1": "kabul", "city2": "dubai" },
+		{ "city1": "kabul", "city2": "bombay" },
 		{ "city1": "beijing", "city2": "bombay" },
-		{ "city1": "beijing", "city2": "bangkok" },
+		{ "city1": "beijing", "city2": "shanghai" },
+		{ "city1": "hanoi", "city2": "shanghai" },
 		{ "city1": "tokyo", "city2": "adelaide" },
-		{ "city1": "adelaide", "city2": "bangkok" },
+		{ "city1": "adelaide", "city2": "denpasar" },
+		{ "city1": "adelaide", "city2": "sydney" },
+		{ "city1": "singapore", "city2": "denpasar" },
 		{ "city1": "tokyo", "city2": "beijing" },
-		{ "city1": "bangkok", "city2": "bombay" }
+		{ "city1": "bangkok", "city2": "bombay" },
+		{ "city1": "bangkok", "city2": "singapore" },
+		{ "city1": "bangkok", "city2": "hanoi" },
+		{ "city1": "barcelona", "city2": "paris" },
+		{ "city1": "paris", "city2": "dublin" },
+		{ "city1": "paris", "city2": "roma" }
 	]
 }
