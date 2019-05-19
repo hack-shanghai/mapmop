@@ -149,7 +149,7 @@ const Players = {
       state.players[state.currentPlayer].cards = newCards;
     },
     NEXT_PLAYER(state) {
-      state.currentPlayer = (state.currentPlayer + 1) % state.players;
+      state.currentPlayer = (state.currentPlayer + 1) % state.players.length;
     },
   },
 };

@@ -15,7 +15,7 @@
             <mapmop :cities="cities" :connections="connections" @click="onMapClick"/>
           </div>
         </div>
-        <div class="column">
+        <div class="column" v-if="currentPlayer">
           <div v-for="(player) in players" :key="player.uuid">
             <div v-if="player.uuid != currentPlayer.uuid">
               <player-insight :player="player"/>
@@ -26,7 +26,7 @@
     </div>
 
     <div class="container-fluid">
-      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card"/>
+      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card" @throw="cardSelectedToDelete"/>
     </div>
   </div>
 </template>
@@ -101,7 +101,7 @@ export default {
         /**
          * If there is no pollution to decrease, we ignore the click.
          */
-        if(!Object.keys(city.pollutions).some((k) => city.pollutions[k] > 0)) {
+        if(Object.keys(city.pollutions).some((k) => city.pollutions[k] > 0)) {
           this.$store.dispatch('board/decreasePollution', city)
           .then(() => {
             this.decreaseAction();
@@ -156,7 +156,7 @@ export default {
       this.$store.dispatch("decks/removeCard", this.game.card);
       let newCard = this.game.card;
       this.game.card = null;
-      if (this.game.card.uuid == card.uuid) {
+      if (newCard.uuid == card.uuid) {
         this.nextPlayer();
         return;
       }
@@ -177,8 +177,8 @@ export default {
       // Apply increase of pollution in x cities.
       let pollutionsKeys = Object.keys(this.pollutions);
       for(let i = 0; i < this.settings.new_stack_per_turn; i++) {
-        let randCity = Math.floor(Math.rand() * this.cities.length);
-        let randPollution = Math.floor(Math.rand() * pollutionsKeys.length);
+        let randCity = Math.floor(Math.random() * this.cities.length);
+        let randPollution = Math.floor(Math.random() * pollutionsKeys.length);
         this.$store.dispatch('board/increasePollution', { city: this.cities[randCity], pollution: pollutionsKeys[randPollution] });
       }
 
