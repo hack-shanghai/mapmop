@@ -21,7 +21,7 @@
           <p>Pollutions:</p>
           <div class="pollutions-stacks">
             <div class="pollution-stacks" v-for="(pollution_data, pollution) in pollutions" :key="pollution">
-              <img class="pollution-stack" v-for="stack in pollutionStack(pollution)" :src="stack.src" :key="$key">
+              <img class="pollution-stack" v-for="(stack, $index_pol) in pollutionStack(pollution)" :src="stack.src" :key="$index_pol">
             </div>
           </div>
           <p>Buildings:</p>
