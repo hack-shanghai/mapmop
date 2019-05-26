@@ -20,7 +20,8 @@
         <div class="column" v-if="currentPlayer">
           <div class="has-text-centered">
             <div class="title">Turn {{ Math.floor(countTurns / players.length)+1 }}</div>
-            <button class="button is-danger" @click="autoplay">Autoplay</button>
+            <button v-if="!autoplay" class="button is-danger" @click="autoplay = true; launchAutoplay()">Autoplay</button>
+            <button v-if="autoplay" class="button is-warning" @click="autoplay = false">Autoplay running...</button>
           </div>
           <div v-for="(player) in players" :key="player.uuid">
             <div v-if="player.uuid != currentPlayer.uuid">
@@ -93,6 +94,7 @@ export default {
         disaster: null
       },
       countTurns: 0,
+      autoplay: false,
     };
   },
   computed: {
@@ -262,7 +264,7 @@ export default {
       }
       return false;
     },
-    autoplay() {
+    launchAutoplay() {
       /**
        * Autoplay the game.
        */
@@ -331,7 +333,9 @@ export default {
       // eslint-disable-next-line
       console.log('Actions ended!');
 
-      setTimeout(this.autoplay, 1000);
+      if(this.autoplay) {
+        setTimeout(this.launchAutoplay, 1000);
+      }
     },
   },
 };
