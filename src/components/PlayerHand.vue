@@ -147,10 +147,10 @@ export default {
     },
   },
   watch: {
-    "player": function (player) {
+    "player": function () {
       this.usedCards = [];
     },
-    "player.city": function (city) {
+    "player.city": function () {
       this.usedCards = [];
     },
   }
