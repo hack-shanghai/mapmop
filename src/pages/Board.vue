@@ -18,6 +18,10 @@
           </div>
         </div>
         <div class="column" v-if="currentPlayer">
+          <div class="has-text-centered">
+            <div class="title">Turn {{ Math.floor(countTurns / players.length) }}</div>
+            <button class="button is-danger" @click="autoplay">Autoplay</button>
+          </div>
           <div v-for="(player) in players" :key="player.uuid">
             <div v-if="player.uuid != currentPlayer.uuid">
               <player-insight :player="player"/>
@@ -87,7 +91,8 @@ export default {
         action_left: 0,
         card: null,
         disaster: null
-      }
+      },
+      countTurns: 1,
     };
   },
   computed: {
@@ -150,7 +155,7 @@ export default {
     decreaseAction() {
       this.game.action_left--;
 
-      if(this.checkGameEnded()) {
+      if(this.checkGameEndedSuccess()) {
         alert('GAME WON!');
         return;
       }
@@ -212,11 +217,14 @@ export default {
       this.nextPlayer();
     },
     nextPlayer() {
+      this.countTurns++;
       // Apply increase of pollution in x cities.
       let pollutionsKeys = Object.keys(this.pollutions);
       for(let i = 0; i < this.settings.new_stack_per_turn; i++) {
         let randCity = Math.floor(Math.random() * this.cities.length);
         let randPollution = Math.floor(Math.random() * pollutionsKeys.length);
+        // eslint-disable-next-line
+        console.log('Increase pollution in ' + this.cities[randCity].name);
         this.$store.dispatch('board/increasePollution', { city: this.cities[randCity], pollution: pollutionsKeys[randPollution] });
       }
 
@@ -236,7 +244,7 @@ export default {
       cards.forEach((card) => this.$store.dispatch('players/removeCard', card));
       this.$store.dispatch('board/buildResearchCenter', { city: this.currentPlayer.city, pollution: null });
     },
-    checkGameEnded() {
+    checkGameEndedSuccess() {
       let researchCenters = 0;
       let ended = !Object.keys(this.cities).some((k) => {
         let city = this.cities[k];
@@ -250,6 +258,77 @@ export default {
         return researchCenters >= Object.keys(this.pollutions).length;
       }
       return false;
+    },
+    autoplay() {
+      /**
+       * Autoplay the game.
+       */
+      if(this.checkGameEndedSuccess() || this.cards.length == 0) {
+        // eslint-disable-next-line
+        console.log('Game ended!');
+        return false;
+      }
+
+      let currentPlayer = this.currentPlayer;
+      /**
+        * Play move.
+        */
+      for(let i = 0; i < this.game.action_left; i++) {
+        let currentCity = this.cities.filter((c) => c.uuid == currentPlayer.city.uuid)[0];
+
+        // TODO: Check if a center can be build.
+
+        // TODO: Define strategy to check if it is necessary to remove a pollution.
+        let pollutionCount = 0;
+        Object.keys(currentCity.pollutions).forEach((k) => pollutionCount += currentCity.pollutions[k]);
+
+        if(pollutionCount > 0) {
+          // eslint-disable-next-line
+          console.log(currentPlayer.name + " remove a pollution in " + currentCity.name);
+          this.onMapClick(currentCity);
+          continue;
+        }
+
+        // TODO: Define strategy to choose the city.
+        let citiesNearBy = this.connections.filter((t) => t.city1 == currentCity.uuid || t.city2 == currentCity.uuid)
+          .map((t) => {
+            if(t.city1 == currentCity.uuid)
+              return this.cities.filter((c) => c.uuid == t.city2)[0];
+
+            return this.cities.filter((c) => c.uuid == t.city1)[0];
+          });
+
+        let nextCity = citiesNearBy[Math.floor(Math.random() * citiesNearBy.length)];
+        // eslint-disable-next-line
+        console.log(currentPlayer.name + " move in " + currentCity.name);
+        this.onMapClick(nextCity);
+      }
+
+      /**
+        * Player has changed.
+        */
+      if(currentPlayer.uuid != this.currentPlayer.uuid) {
+        // eslint-disable-next-line
+        console.log('Player had changed!');
+        return;
+      }
+
+      /**
+        * Choose card if required.
+        */
+      if(this.game.card != null) {
+        let card = currentPlayer.cards[0]; // TODO: Define strategy to select the card.
+        if(card != null) {
+          // eslint-disable-next-line
+          console.log(currentPlayer.name + " choose to remove card " + card.name);
+          this.cardSelectedToDelete(card);
+        }
+      }
+
+      // eslint-disable-next-line
+      console.log('Actions ended!');
+
+      setTimeout(this.autoplay, 1000);
     },
   },
 };

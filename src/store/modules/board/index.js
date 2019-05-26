@@ -106,8 +106,8 @@ const Board = {
         let total = 0;
         Object.keys(c.pollutions).forEach((k) => total += c.pollutions[k]);
 
-        if(spread) {
-          if(total == 3) {
+        if(total == 3) {
+          if(spread) {
             // Explode to other cities linked.
             state.transitions
               .filter((t) => t.city1 == c.uuid || t.city2 == c.uuid)
