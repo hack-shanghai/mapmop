@@ -25,7 +25,7 @@
         <!-- City name overlay -->
         <vl-overlay :position="[ctd.city.lon, ctd.city.lat]" :offset="[-8, 8]">
           <template slot-scope="scope">
-            <div class="city-name">
+            <div class="city-name" @click="selectCity(ctd.city)">
               {{ ctd.city.name }}
             </div>
           </template>
@@ -209,8 +209,11 @@ export default {
     selectMap({ feature }) {
       const city = feature.vm[0].$attrs.city;
       if (city) {
-        this.$emit("click", city);
+        this.selectCity(city);
       }
+    },
+    selectCity(city) {
+      this.$emit("click", city);
     },
     centerCity(city) {
       {
@@ -233,6 +236,7 @@ export default {
 
 <style scoped>
 .city-name {
+  cursor: pointer;
   padding: 2px 6px 2px 6px;;
   color: #ffffff;
   background-color: rgb(0, 0, 0, 0.5);
