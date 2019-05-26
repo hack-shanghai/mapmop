@@ -14,7 +14,7 @@
       <div class="columns">
         <div class="column is-three-quarters">
           <div class="box">
-            <mapmop :cities="cities" :connections="connections" @click="onMapClick"/>
+            <mapmop v-if="currentPlayer" :cities="cities" :connections="connections" @click="onMapClick" ref="map"/>
           </div>
         </div>
         <div class="column" v-if="currentPlayer">
@@ -24,7 +24,7 @@
           </div>
           <div v-for="(player) in players" :key="player.uuid">
             <div v-if="player.uuid != currentPlayer.uuid">
-              <player-insight :player="player"/>
+              <player-insight :player="player" @player-focus="playerFocus"/>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
     </div>
 
     <div class="container-fluid">
-      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card" @throw="cardSelectedToDelete" @building="buildResearchCenter"/>
+      <player-hand v-if="currentPlayer" :player="currentPlayer" :pendingCard="game.card" @throw="cardSelectedToDelete" @building="buildResearchCenter" @player-focus="playerFocus"/>
     </div>
 
     <div :class="{'is-active': game.disaster}" class="modal">
@@ -215,6 +215,9 @@ export default {
     applyDisaster() {
       this.$store.dispatch("decks/removeCard", this.game.card);
       this.nextPlayer();
+    },
+    playerFocus(player) {
+      this.$refs.map.centerPlayer(player);
     },
     nextPlayer() {
       this.countTurns++;

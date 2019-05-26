@@ -2,12 +2,13 @@
   <div class="player-hand">
 
 
-    <div class="player-status">
+    <div class="player-status player-focus" @click="playerFocus()">
       <div class="player-summary">
         <img :src="getPlayerImgSrc" class="player-character">
         <div player-names>
           <h1><div class="player-avatar-mask" :style="{'background-color': getPlayerColor}"></div>{{ player.name }}</h1>
           <h2>{{ player.character }}</h2>
+          <p>{{ characters[player.character].ability }}</p>
         </div>
       </div>
 
@@ -18,13 +19,13 @@
         </div>
         <div class="city-stacks">
           <p>Pollutions:</p>
-          <div class="pollution-stack">
-            <div v-for="(pollution_data, pollution) in pollutions" :key="pollution">
-              <img class="pollution-stack" v-for="stacks in pollutionStack(pollution)" :src="pollutionImgSrc(pollution)" style="background-color: black;" :key="stacks">
+          <div class="pollutions-stacks">
+            <div class="pollution-stacks" v-for="(pollution_data, pollution) in pollutions" :key="pollution">
+              <img class="pollution-stack" v-for="stack in pollutionStack(pollution)" :src="stack.src" :key="$key">
             </div>
           </div>
           <p>Buildings:</p>
-          <div class="building-stack">
+          <div class="building-stacks">
             <img class="building-stack" v-for="building in player.city.buildings" :src="getCityBuildingSrc(building)" :key="building">
           </div>
         </div>
@@ -117,10 +118,23 @@ export default {
       }
     },
     pollutionStack(type) {
-      return [...Array(this.player.city.pollutions[type]).keys()];
+      let stack = [];
+      for (let i=0; i<3; i++) {
+        if (i < this.player.city.pollutions[type]) {
+          stack.push({src: this.pollutionImgSrc(type), active: true});
+        }
+        else {
+          stack.push({src: this.pollutionImgSrc(type, false), active: false});
+        }
+      }
+      return stack;
     },
-    pollutionImgSrc(type) {
-      let name = `pollutions/${type.toLowerCase()}.png`;
+    pollutionImgSrc(type, active=true) {
+      name = type.toLowerCase();
+      if (!active) {
+        name += "-off"
+      }
+      let name = `pollutions/${name}.png`;
       return name;
     },
     getCityBuildingSrc(type) {
@@ -141,13 +155,16 @@ export default {
       if (image.src != "cities/default.jpg"){
         image.src = "cities/default.jpg";
       }
+    },
+    playerFocus() {
+      this.$emit('player-focus', this.player);
     }
   },
   watch: {
-    "player": function (player) {
+    "player": function () {
       this.usedCards = [];
     },
-    "player.city": function (city) {
+    "player.city": function () {
       this.usedCards = [];
     },
   }
@@ -188,6 +205,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin: 4px;
 }
 
 .pollution-stack {
@@ -236,8 +254,33 @@ export default {
   background-color: rgb(0,0,0,0.5)
 }
 
+.pollutions-stacks {
+  display: flex;
+  flex-direction: column;
+}
+
+.pollution-stacks {
+  display: flex;
+  flex-direction: row;
+}
+
 .pollution-stack {
-  width: 50px;
+  width: 30px;
+  height: 30px;
+}
+
+.building-stacks {
+  display: flex;
+  flex-direction: row;
+}
+
+.building-stack {
+  width: 30px;
+  height: 30px;
+}
+
+.player-focus {
+  cursor: pointer;
 }
 
 h1 {

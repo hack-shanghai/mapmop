@@ -22,7 +22,7 @@
       "name": "Journalist",
       "description": "",
       "ability": "Remove 2 pollutions point from different location whenever a location spreading level.",
-      "color": "#ffffff"
+      "color": "#aa00aa"
     },
     "dictator": {
       "name": "Dictator",
