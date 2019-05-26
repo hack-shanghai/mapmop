@@ -10,6 +10,7 @@
         :zoom.sync="zoom"
         :center.sync="getCenter.center"
         :rotation.sync="rotation"
+        ref="vlView"
       ></vl-view>
 
       <!-- interactions -->
@@ -20,6 +21,16 @@
 
       <vl-feature v-for="(ctd, index) in cityToDisplay" :key="'city_' + index" :city="ctd.city">
         <vl-geom-point :coordinates="[ctd.city.lon, ctd.city.lat]"></vl-geom-point>
+
+        <!-- City name overlay -->
+        <vl-overlay :position="[ctd.city.lon, ctd.city.lat]" :offset="[-8, 8]">
+          <template slot-scope="scope">
+            <div class="city-name">
+              {{ ctd.city.name }}
+            </div>
+          </template>
+        </vl-overlay>
+
         <!-- Nuclear -->
         <vl-style-box>
           <vl-style-icon
@@ -92,7 +103,8 @@ export default {
     ...mapGetters({
       pollutions: "config/getPollutions",
       characters: "config/getCharacters",
-      players: "players/getPlayers"
+      players: "players/getPlayers",
+      player: "players/getCurrentPlayer"
     }),
     // get the center map
     getCenter() {
@@ -184,7 +196,9 @@ export default {
       return cityDisplay;
     }
   },
-  mounted() {},
+  mounted() {
+    this.centerPlayer(this.player);
+  },
   data() {
     return {
       zoom: 3,
@@ -197,7 +211,31 @@ export default {
       if (city) {
         this.$emit("click", city);
       }
+    },
+    centerCity(city) {
+      {
+        this.$refs.vlView.animate({center: [city.lon, city.lat], zoom: 4})
+      };
+    },
+    centerPlayer(player) {
+      {
+        this.$refs.vlView.animate({center: [player.city.lon, player.city.lat], zoom: 4})
+      };
     }
+  },
+  watch: {
+    "player.city": function (city) {
+      this.centerCity(city);
+    },
   }
 };
 </script>
+
+<style scoped>
+.city-name {
+  padding: 2px 6px 2px 6px;;
+  color: #ffffff;
+  background-color: rgb(0, 0, 0, 0.5);
+  border-radius: 25px;
+}
+</style>

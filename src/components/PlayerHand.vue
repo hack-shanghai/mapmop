@@ -142,6 +142,14 @@ export default {
         image.src = "cities/default.jpg";
       }
     }
+  },
+  watch: {
+    "player": function (player) {
+      this.usedCards = [];
+    },
+    "player.city": function (city) {
+      this.usedCards = [];
+    },
   }
 }
 </script>
