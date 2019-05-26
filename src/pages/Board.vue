@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div class="top-indicator">
+    <div class="top-indicator" @click="skipTurn">
       <div class="has-text-centered">
         <div>
           <p class="heading">Actions left</p>
-          <p class="title">{{ game.action_left }}</p>
+          <p class="title">{{ game.action_left }}
+            <span class="skip">Click here to skip</span>
+          </p>
         </div>
       </div>
     </div>
@@ -56,6 +58,13 @@
   padding: 20px;
   border-radius: 0 0 20px 20px;
   z-index: 10;
+  cursor: pointer;
+}
+
+.skip {
+  display: block;
+  font-size: 12px;
+  color: #ccc;
 }
 </style>
 
@@ -172,6 +181,14 @@ export default {
         // If it's a disaster card, we display a modal with the disaster.
         this.game.disaster = this.game.card.disaster;
       }
+    },
+    skipTurn() {
+      if(this.game.action_left == 0) {
+        return;
+      }
+
+      this.game.action_left = 1;
+      this.decreaseAction();
     },
     cardSelectedToDelete(card) {
       this.$store.dispatch("decks/removeCard", this.game.card);
