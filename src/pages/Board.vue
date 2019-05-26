@@ -19,7 +19,7 @@
         </div>
         <div class="column" v-if="currentPlayer">
           <div class="has-text-centered">
-            <div class="title">Turn {{ Math.floor(countTurns / players.length) }}</div>
+            <div class="title">Turn {{ Math.floor(countTurns / players.length)+1 }}</div>
             <button class="button is-danger" @click="autoplay">Autoplay</button>
           </div>
           <div v-for="(player) in players" :key="player.uuid">
@@ -92,7 +92,7 @@ export default {
         card: null,
         disaster: null
       },
-      countTurns: 1,
+      countTurns: 0,
     };
   },
   computed: {
