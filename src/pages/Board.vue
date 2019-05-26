@@ -10,6 +10,14 @@
         </div>
       </div>
     </div>
+    <div class="help-indicator">
+      <div class="has-text-centered" @click="displayHelp = !displayHelp">
+        <div>
+          <p class="heading">Help</p>
+          <p class="title">?</p>
+        </div>
+      </div>
+    </div>
     <div class="container-fluid">
       <div class="columns">
         <div class="column is-three-quarters">
@@ -51,6 +59,18 @@
         </footer>
       </div>
     </div>
+
+    <div id="help" v-if="displayHelp">
+      <div>
+        <h1>It's your turn, you can:</h1>
+        <ul>
+          <li>click on a nearby city to move there</li>
+          <li>clean a city pollution by clicking on import</li>
+          <li>build a research center in this city if you have enough research card for this pollution and the city's one</li>
+        </ul>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -70,6 +90,28 @@
   display: block;
   font-size: 12px;
   color: #ccc;
+}
+
+.help-indicator {
+  position: fixed;
+  top: 0;
+  left: 30%;
+  background-color: #212121;
+  padding: 20px;
+  border-radius: 0 0 20px 20px;
+  z-index: 10;
+  cursor: pointer;
+}
+
+#help {
+  position : fixed;
+  top: 40%;
+  left: 40%;
+  z-index: 20;
+  width: 20%;
+  background-color: #212121;
+  border-radius: 25px;
+  padding: 20px;
 }
 </style>
 
@@ -95,6 +137,7 @@ export default {
       },
       countTurns: 0,
       autoplay: false,
+      displayHelp: false,
     };
   },
   computed: {
