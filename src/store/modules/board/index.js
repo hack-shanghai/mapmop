@@ -7,8 +7,8 @@ const Board = {
   state: {
 /**
  * board: {
- *   cities: [
- *     {
+ *   cities: {
+ *     uuid: {
  *       uuid: 'UUID of the city',
  *       name: 'Name',
  *       lon: '',
@@ -26,7 +26,7 @@ const Board = {
  *
  *       ]
  *     }
- *   ],
+ *   },
  *   transitions: [
  *     {
  *       city1: '',
@@ -56,7 +56,7 @@ const Board = {
     }},
   },
   actions: {
-    init({ commit, rootGetters }) {
+    init({ commit, state, rootGetters }) {
 
       let pollutions = rootGetters['config/getPollutions'];
 
@@ -64,7 +64,8 @@ const Board = {
         /**
          * Load the list of cities.
          */
-        Object.keys(map.cities).forEach((city_key) => {
+        let cityKeys = Object.keys(map.cities);
+        cityKeys.forEach((city_key) => {
           let city = map.cities[city_key];
           city.uuid = city_key;
 
@@ -85,28 +86,42 @@ const Board = {
           commit('ADD_TRANSITION', t);
         });
 
+        /**
+         * Initialize board.
+         */
+        Object.keys(pollutions).forEach((p) => {
+          let k = cityKeys[Math.floor(Math.random() * cityKeys.length)];
+          commit('INCREASE_POLLUTION', { city: state.cities[k], pollution: p });
+        });
+
         commit("SET_INIT", true);
         resolve();
       });
     },
-    increasePollution({ commit }, { city, pollution }) {
-      return new Promise((resolve) => {
+    increasePollution({ commit, state }, { city, pollution }) {
+
+      function increase(c, p, spread) {
         // If pollution is over 3, we dispatch 1 more to the cities linked to it.
 
         let total = 0;
-        Object.keys(city.pollutions).forEach((k) => total += city.pollutions[k]);
+        Object.keys(c.pollutions).forEach((k) => total += c.pollutions[k]);
 
-        if(total == 3) {
-          // Explode to other cities linked.
-
-          // TODO
-
-
-          resolve();
+        if(spread) {
+          if(total == 3) {
+            // Explode to other cities linked.
+            state.transitions
+              .filter((t) => t.city1 == c.uuid || t.city2 == c.uuid)
+              .map((t) => t.city1 == c.uuid ? state.cities[t.city2] : state.cities[t.city1])
+              .forEach((c1) => increase(c1, p, false));
+          }
           return;
         }
 
-        commit('INCREASE_POLLUTION', { city, pollution });
+        commit('INCREASE_POLLUTION', { city: c, pollution: p });
+      }
+
+      return new Promise((resolve) => {
+        increase(city, pollution, true);
         resolve();
       });
     },
@@ -138,7 +153,7 @@ const Board = {
       state.initialized = initialized;
     },
     BUILD_RESEARCH_CENTER(state, { city, pollution }) {
-      state.cities[city.uuid].buildings.push('research');
+      state.cities[city.uuid].buildings.push(pollution);
     },
   }
 };

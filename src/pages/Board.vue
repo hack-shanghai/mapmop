@@ -141,6 +141,11 @@ export default {
     decreaseAction() {
       this.game.action_left--;
 
+      if(this.checkGameEnded()) {
+        alert('GAME WON!');
+        return;
+      }
+
       if(this.game.action_left < 1) {
         // Make the next card of the deck visible.
         if (this.cards.length == 0) {
@@ -213,6 +218,21 @@ export default {
       }
       cards.forEach((card) => this.$store.dispatch('players/removeCard', card));
       this.$store.dispatch('board/buildResearchCenter', { city: this.currentPlayer.city, pollution: null });
+    },
+    checkGameEnded() {
+      let researchCenters = 0;
+      let ended = !Object.keys(this.cities).some((k) => {
+        let city = this.cities[k];
+        if(city.buildings.length > 0) {
+          researchCenters++;
+        }
+        return Object.keys(city.pollutions).some((p) => city.pollutions[p] > 0);
+      });
+
+      if(ended) {
+        return researchCenters >= Object.keys(this.pollutions).length;
+      }
+      return false;
     },
   },
 };
