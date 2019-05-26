@@ -2,7 +2,7 @@
   <div class="player-hand">
 
 
-    <div class="player-status">
+    <div class="player-status player-focus" @click="playerFocus()">
       <div class="player-summary">
         <img :src="getPlayerImgSrc" class="player-character">
         <div player-names>
@@ -141,7 +141,10 @@ export default {
       if (image.src != "cities/default.jpg"){
         image.src = "cities/default.jpg";
       }
-    }
+    },
+    playerFocus() {
+      this.$emit('player-focus', this.player);
+    },
   },
   watch: {
     "player": function (player) {
@@ -238,6 +241,10 @@ export default {
 
 .pollution-stack {
   width: 50px;
+}
+
+.player-focus {
+  cursor: pointer;
 }
 
 h1 {

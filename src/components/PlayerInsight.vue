@@ -1,6 +1,6 @@
 <template>
   <div class="player-insight">
-    <h1><div class="player-avatar-mask" :style="{'background-color': getPlayerColor}"></div>{{ player.name }}</h1>
+    <h1 class="player-focus" @click="playerFocus()"><div class="player-avatar-mask" :style="{'background-color': getPlayerColor}"></div>{{ player.name }}</h1>
     <div class="columns">
       <div class="column" v-for="card in player.cards" :key="card.uuid">
         <city-card :card="card" :small="true"/>
@@ -18,6 +18,9 @@ export default {
     player: Object
   },
   methods: {
+    playerFocus() {
+      this.$emit('player-focus', this.player);
+    }
   },
   computed: {
       ...mapGetters({
@@ -38,5 +41,9 @@ export default {
   width: 20px;
   height: 20px;
   mask-image: url(/avatar.svg);
+}
+
+.player-focus {
+  cursor: pointer;
 }
 </style>
