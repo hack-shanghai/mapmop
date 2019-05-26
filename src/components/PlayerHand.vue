@@ -8,6 +8,7 @@
         <div player-names>
           <h1><div class="player-avatar-mask" :style="{'background-color': getPlayerColor}"></div>{{ player.name }}</h1>
           <h2>{{ player.character }}</h2>
+          <p>{{ characters[player.character].ability }}</p>
         </div>
       </div>
 
@@ -144,7 +145,7 @@ export default {
     },
     playerFocus() {
       this.$emit('player-focus', this.player);
-    },
+    }
   },
   watch: {
     "player": function () {
